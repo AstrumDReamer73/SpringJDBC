@@ -1,18 +1,18 @@
 package com.example.demo.model
 
 import lombok.Data
+import java.util.*
 
-@Data
-class almacen(
-    val IDAlmacen:Int?=0,
+@Data class empleadosCliente(
+    val RFC:String?="",
+    val RFCEmpleador:String?="",
     val nombre:String?="",
     val direccion:String?="",
     val territorio:String?="",
     val estado:String?="",
     val codPostal:String?="",
     val telefono:String?="",
-    val capacidad:Int?=0,
-    val puertos:Int?=0,
-    val refrigeracion:Boolean?=false,
-    val eliminado:Boolean=false
+    val correo:String?="",
+    val fechaAlta: Date?=Date(),
+    val eliminado:Boolean?=false
 )

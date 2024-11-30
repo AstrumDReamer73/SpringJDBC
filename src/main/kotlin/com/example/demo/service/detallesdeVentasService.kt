@@ -1,28 +1,27 @@
 package com.example.demo.service
 
-import com.example.demo.model.detallesdeCompra
-import com.example.demo.model.detallesdeVentas
+import com.example.demo.model.detallesdeVenta
 import com.example.demo.repository.repositorioDetallesdeVentas
 import org.springframework.beans.factory.annotation.Autowired
 
 class detallesdeVentasService @Autowired constructor(private val repositorioDetallesdeVentas: repositorioDetallesdeVentas){
-    fun findAll(): List<detallesdeVentas> {
+    fun findAll(): List<detallesdeVenta> {
         return try { repositorioDetallesdeVentas.findAll() }
         catch (e: Exception) { throw e }
     }
 
-    fun findAllbyFactura(factura:String): List<detallesdeVentas> {
+    fun findAllbyFactura(factura:String): List<detallesdeVenta> {
         return try { repositorioDetallesdeVentas.findAllByFactura(factura) }
         catch (e: Exception) { throw e }
     }
 
-    fun insert(detallesdeVentas: detallesdeVentas):Int{
-        return try { repositorioDetallesdeVentas.save(detallesdeVentas) }
+    fun insert(detallesdeVenta: detallesdeVenta):Int{
+        return try { repositorioDetallesdeVentas.save(detallesdeVenta) }
         catch (e:Exception){ throw e }
     }
 
-    fun update(detallesdeVentas: detallesdeVentas): Int {
-        return try { repositorioDetallesdeVentas.update(detallesdeVentas) }
+    fun update(detallesdeVenta: detallesdeVenta): Int {
+        return try { repositorioDetallesdeVentas.update(detallesdeVenta) }
         catch (e: Exception) { throw e }
     }
 

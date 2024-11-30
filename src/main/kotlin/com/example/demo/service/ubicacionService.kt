@@ -1,34 +1,32 @@
 package com.example.demo.service
 
-import com.example.demo.model.proveedores
 import com.example.demo.model.ubicacion
-import com.example.demo.repository.repositorioProveedores
-import com.example.demo.repository.repositorioUbicacion
+import com.example.demo.repository.repositorioUbicaciones
 import org.springframework.beans.factory.annotation.Autowired
 
-class ubicacionService @Autowired constructor(private val repositorioUbicacion: repositorioUbicacion){
+class ubicacionService @Autowired constructor(private val repositorioUbicaciones: repositorioUbicaciones){
     fun findAll(): List<ubicacion> {
-        return try { repositorioUbicacion.findAll() }
+        return try { repositorioUbicaciones.findAll() }
         catch (e: Exception) { throw e }
     }
 
     fun findAllActive(): List<ubicacion> {
-        return try { repositorioUbicacion.findAllActive() }
+        return try { repositorioUbicaciones.findAllActive() }
         catch (e: Exception) { throw e }
     }
 
     fun insert(ubicacion: ubicacion):Int{
-        return try { repositorioUbicacion.save(ubicacion) }
+        return try { repositorioUbicaciones.save(ubicacion) }
         catch (e:Exception){ throw e }
     }
 
     fun update(ubicacion: ubicacion): Int {
-        return try { repositorioUbicacion.update(ubicacion) }
+        return try { repositorioUbicaciones.update(ubicacion) }
         catch (e: Exception) { throw e }
     }
 
     fun deleteById(id:Int): Int {
-        return try { repositorioUbicacion.deleteByID(id)
+        return try { repositorioUbicaciones.deleteByID(id)
         } catch (e: Exception) { throw e }
     }
 }

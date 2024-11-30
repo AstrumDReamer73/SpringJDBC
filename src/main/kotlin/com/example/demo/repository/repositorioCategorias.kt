@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
 
-@Repository class repositorioCategoria @Autowired constructor(private val jdbcTemplate: JdbcTemplate) {
+@Repository class repositorioCategorias @Autowired constructor(private val jdbcTemplate: JdbcTemplate) {
     fun findAll(): List<categoria> {
         val sql = "SELECT * FROM categorias WHERE status=1"
         return jdbcTemplate.query(sql, BeanPropertyRowMapper(categoria::class.java))

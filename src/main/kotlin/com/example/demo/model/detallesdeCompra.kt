@@ -4,12 +4,12 @@ import java.math.BigDecimal
 
 import lombok.Data
 @Data class detallesdeCompra(
-    val IDDetallesdeCompra:Int,
-    val factura:String,
-    val UPC:Int,
-    val cantidad:Int,
-    val IVA:BigDecimal,
-    val IEPS:BigDecimal,
-    val Subtotal:BigDecimal,
-    val total:BigDecimal
+    val IDDetallesdeCompra:Int?=0,
+    val factura:String?="",
+    val UPC:Int?=0,
+    val cantidad:Int?=0,
+    val IVA:BigDecimal?= BigDecimal.ZERO,
+    val IEPS:BigDecimal?= BigDecimal.ZERO,
+    val Subtotal:BigDecimal?= BigDecimal.ZERO,
+    val total:BigDecimal?= BigDecimal.ZERO
 )

@@ -1,13 +1,12 @@
 package com.example.demo.repository
 
-import com.example.demo.model.categoria
 import com.example.demo.model.ubicacion
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
 
-@Repository class repositorioUbicacion @Autowired constructor(private val jdbcTemplate: JdbcTemplate){
+@Repository class repositorioUbicaciones @Autowired constructor(private val jdbcTemplate: JdbcTemplate){
     fun findAll(): List<ubicacion> {
         val sql = "SELECT * FROM ubicacion"
         return jdbcTemplate.query(sql, BeanPropertyRowMapper(ubicacion::class.java))
