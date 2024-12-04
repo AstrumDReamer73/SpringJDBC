@@ -11,30 +11,28 @@
     <h1>Bienvenido</h1>
   </div>
   <div class="row">
-    <!-- Columna 1: Listas -->
     <div class="col-md-6">
       <h2>Listas</h2>
       <ul class="list-unstyled">
-        <li><a href="@{/almacenes}" class="h5">Lista de almacenes</a></li>
-        <li><a href="@{/articulos}" class="h5">Lista de artículos</a></li>
-        <li><a href="@{/tables.categorias}" class="h5">Lista de categorías</a></li>
-        <li><a href="@{/clientes}" class="h5">Lista de clientes</a></li>
-        <li><a href="@{/ventas}" class="h5">Lista de ventas</a></li>
-        <li><a href="@{/proveedores}" class="h5">Lista de proveedores</a></li>
-        <li><a href="@{/compras}" class="h5">Lista de compras</a></li>
+        <li><a th:href="@{almacenes}" class="h5">Lista de almacenes</a></li>
+        <li><a th:href="@{articulos}" class="h5">Lista de artículos</a></li>
+        <li><a th:href="@{categorias}" class="h5">Lista de categorías</a></li>
+        <li><a th:href="@{clientes}" class="h5">Lista de clientes</a></li>
+        <li><a th:href="@{ventas}" class="h5">Lista de ventas</a></li>
+        <li><a th:href="@{proveedores}" class="h5">Lista de proveedores</a></li>
+        <li><a th:href="@{compras}" class="h5">Lista de compras</a></li>
       </ul>
     </div>
-    <!-- Columna 2: Agregar -->
     <div class="col-md-6">
       <h2>Agregar</h2>
       <ul class="list-unstyled">
-        <li><a href="@{/almacenes/añadirAlmacen}" class="h5">Agregar almacenes</a></li>
-        <li><a href="@{/articulos/añadirAlmacen}" class="h5">Agregar artículos</a></li>
-        <li><a href="@{/categorias/añadirAlmacen}" class="h5">Agregar categorías</a></li>
-        <li><a href="@{/clientes/añadirAlmacen}" class="h5">Agregar clientes</a></li>
-        <li><a href="@{/ventas/añadirAlmacen}" class="h5">Agregar ventas</a></li>
-        <li><a href="@{/proveedores/añadirAlmacen}" class="h5">Agregar proveedores</a></li>
-        <li><a href="@{/compras/añadirAlmacen}" class="h5">Agregar compras</a></li>
+        <li><a th:href="@{añadirAlmacen}" class="h5">Agregar almacenes</a></li>
+        <li><a th:href="@{añadirArtículos}" class="h5">Agregar artículos</a></li>
+        <li><a th:href="@{añadirCategorías}" class="h5">Agregar categorías</a></li>
+        <li><a th:href="@{añadirClientes}" class="h5">Agregar clientes</a></li>
+        <li><a th:href="@{añadirVentas}" class="h5">Agregar ventas</a></li>
+        <li><a th:href="@{añadirProveedores}" class="h5">Agregar proveedores</a></li>
+        <li><a th:href="@{añadirCompras}" class="h5">Agregar compras</a></li>
       </ul>
     </div>
   </div>

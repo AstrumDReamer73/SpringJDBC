@@ -28,18 +28,38 @@
         <div class="">
             <h1 class="text-center">registro de categoria</h1>
             <div class="card-body"></div>
-            <form th:action="@{/categoria}" th:object="${categoria}" method="POST">
+            <form th:action="@{/proveedor}" th:object="${proveedor}" method="POST">
                 <div class="form-group">
-                    <label>nombre de categoria:</label>
+                    <label>ingrese el RFC:</label>
+                    <input type="text" name="RFC" th:field="*{RFC}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>nombre del cliente:</label>
                     <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>ingrese el impuesto IVA:</label>
-                    <input type="text" name="IVA" th:field="*{IVA}" class="form-control" placeholder="ingresarla en el siguiente formato (0.##)">
+                    <label>direccion:</label>
+                    <input type="text" name="direccion" th:field="*{direccion}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>ingrese el impuesto IEPS:</label>
-                    <input type="text" name="IEPS" th:field="*{IEPS}" class="form-control" placeholder="si no tiene puede dejarla en 0">
+                    <label>territorio, municipio o alcaldia:</label>
+                    <input type="text" name="territorio" th:field="*{territorio}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>estado:</label>
+                    <input type="text" name="estado" th:field="*{estado}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>codigo Postal:</label>
+                    <input type="text" name="codPostal" th:field="*{codPostal}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>telefono:</label>
+                    <input type="text" name="telefono" th:field="*{telefono}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>correo electronico:</label>
+                    <input type="email" name="telefono" th:field="*{correo}" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary">guardar</button>
             </form>

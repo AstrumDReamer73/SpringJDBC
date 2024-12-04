@@ -1,10 +1,11 @@
 package com.example.demo.model
 
-import lombok.Data
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 
-@Data
-class almacen(
-    val IDAlmacen:Int?=0,
+@Entity @Table(name="almacenes") data class almacen(
+    @Id val IDAlmacen:Int?=0,
     val nombre:String?="",
     val direccion:String?="",
     val territorio:String?="",

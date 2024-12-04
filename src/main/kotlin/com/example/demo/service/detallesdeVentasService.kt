@@ -3,7 +3,9 @@ package com.example.demo.service
 import com.example.demo.model.detallesdeVenta
 import com.example.demo.repository.repositorioDetallesdeVentas
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
+@Service
 class detallesdeVentasService @Autowired constructor(private val repositorioDetallesdeVentas: repositorioDetallesdeVentas){
     fun findAll(): List<detallesdeVenta> {
         return try { repositorioDetallesdeVentas.findAll() }

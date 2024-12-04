@@ -1,13 +1,15 @@
 package com.example.demo.model
+
+import jakarta.persistence.*
 import java.math.BigDecimal
 import java.util.Date
-import lombok.Data
-@Data class articulos(
-    val UPC:Int=0,
-    val posicion:Int=0,
+
+@Entity @Table(name="almacenes") data class articulo(
+    @Id val UPC:Int=0,
+    @OneToOne @JoinColumn(name="IDPosicion") val posicion:ubicacion?=null,
     val descripcion:String="",
     val cantidad:Int=0,
-    val categoria:Int=0,
+    @OneToOne @JoinColumn(name="IDCategoria") val categoria:categoria?=null,
     val costoCompra:BigDecimal= BigDecimal.ZERO,
     val ultimoCostoCompra:BigDecimal= BigDecimal.ZERO,
     val precioVenta:BigDecimal= BigDecimal.ZERO,

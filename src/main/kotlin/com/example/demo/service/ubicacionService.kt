@@ -2,31 +2,20 @@ package com.example.demo.service
 
 import com.example.demo.model.ubicacion
 import com.example.demo.repository.repositorioUbicaciones
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
-class ubicacionService @Autowired constructor(private val repositorioUbicaciones: repositorioUbicaciones){
-    fun findAll(): List<ubicacion> {
-        return try { repositorioUbicaciones.findAll() }
-        catch (e: Exception) { throw e }
-    }
+@Service class ubicacionService(private val ubicacionRepository: repositorioUbicaciones) {
 
-    fun findAllActive(): List<ubicacion> {
-        return try { repositorioUbicaciones.findAllActive() }
-        catch (e: Exception) { throw e }
-    }
+    fun findAll(): List<ubicacion> { return ubicacionRepository.findAll() }
 
-    fun insert(ubicacion: ubicacion):Int{
-        return try { repositorioUbicaciones.save(ubicacion) }
-        catch (e:Exception){ throw e }
-    }
+    fun findAllActive(): List<ubicacion> { return ubicacionRepository.findByEliminado(false) }
 
-    fun update(ubicacion: ubicacion): Int {
-        return try { repositorioUbicaciones.update(ubicacion) }
-        catch (e: Exception) { throw e }
-    }
+    fun save(ubicacion: ubicacion): ubicacion { return ubicacionRepository.save(ubicacion) }
 
-    fun deleteById(id:Int): Int {
-        return try { repositorioUbicaciones.deleteByID(id)
-        } catch (e: Exception) { throw e }
+    fun update(ubicacion: ubicacion): ubicacion { return ubicacionRepository.save(ubicacion) }
+
+    fun deleteById(id: Int) {
+        val ubicacion = ubicacionRepository.findById(id).orElseThrow { Exception("Ubicación no encontrada") }
+        ubicacionRepository.delete(ubicacion)
     }
 }

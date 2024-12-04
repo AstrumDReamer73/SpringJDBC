@@ -1,9 +1,9 @@
 package com.example.demo.model
 
+import jakarta.persistence.*
 import java.math.BigDecimal
-import lombok.Data
-@Data class detallesdeVenta (
-    val IDDetallesdeCompra:Int?=0,
+@Entity @Table(name="detallesdeVenta") class detallesdeVenta (
+    @Id val IDDetallesdeCompra:Int?=0,
     val factura:String?="",
     val UPC:Int?=0,
     val cantidad:Int?=0,

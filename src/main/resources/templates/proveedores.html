@@ -25,7 +25,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <h1>lista de compras</h1>
+            <h1>lista de proveedores</h1>
         </div>
     </div>
     <br>
@@ -45,16 +45,16 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <tr th:each="clientes:${clientes}">
-            <td th:text="${clientes.RFC}">factura</td>
-            <td th:text="${clientes.nombre}">nombre</td>
-            <td th:text="${clientes.direccion}">direccion</td>
-            <td th:text="${clientes.territorio}">territorio</td>
-            <td th:text="${clientes.estado}">estado</td>
-            <td th:text="${clientes.codPostal}">codigo postal</td>
-            <td th:text="${clientes.telefono}">telefono</td>
-            <td th:text="${clientes.correo}">correo</td>
-            <td th:text="${clientes.fechaAlta}">fecha de alta</td>
+        <tr th:each="proveedores:${proveedores}">
+            <td th:text="${proveedores.RFC}">factura</td>
+            <td th:text="${proveedores.nombre}">nombre</td>
+            <td th:text="${proveedores.direccion}">direccion</td>
+            <td th:text="${proveedores.territorio}">territorio</td>
+            <td th:text="${proveedores.estado}">estado</td>
+            <td th:text="${proveedores.codPostal}">codigo postal</td>
+            <td th:text="${proveedores.telefono}">telefono</td>
+            <td th:text="${proveedores.correo}">correo</td>
+            <td th:text="${proveedores.fechaAlta}">fecha de alta</td>
             <td>
                 <button>modificar</button>
                 <button>eliminar</button>

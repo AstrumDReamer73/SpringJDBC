@@ -1,31 +1,34 @@
 package com.example.demo.controller
 
-import com.example.demo.model.articulos
-import com.example.demo.repository.repositorioArticulos
+import com.example.demo.model.*
+import com.example.demo.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.*
 
-@Controller
-class articulosController {
-    @Autowired
-    lateinit var repositorioArticulos: repositorioArticulos
+@Controller class articulosController {
+    @Autowired lateinit var repositorioArticulo: repositorioArticulos
+    @Autowired lateinit var repositorioCategoria: repositorioCategorias
+    @Autowired lateinit var repositorioUbicaciones: repositorioUbicaciones
 
-    @GetMapping("/articulos") fun listarArticulos(model: Model):String{
-        val listaArticulos:List<articulos> =repositorioArticulos.findAll()
-        model.addAttribute("listaArticulos",listaArticulos)
-        return "articulos"
-    }
-
-    @GetMapping("/articulos/añadirArticulos")fun añadirArticulo(model: Model):String{
-        model.addAttribute("articulos", articulos())
+    @GetMapping("articulos/agregar") fun agregarArticulo(model: Model):String{
+        val listaCategorias:List<categoria> =repositorioCategoria.findAll()
+        val listaUbicaciones:List<ubicacion> =repositorioUbicaciones.findAll()
+        model.addAttribute("articulo",articulo())
+        model.addAttribute("listaCategorias",listaCategorias)
+        model.addAttribute("listaUbicaciones",listaUbicaciones)
         return "añadirArticulos"
     }
 
-    @PostMapping("/articulos/guardar") fun guardarArticulo(articulos: articulos):String{
-        repositorioArticulos.save(articulos)
+    @PostMapping("/articulos/guardar") fun guardarArticulo(articulo: articulo):String{
+        repositorioArticulo.save(articulo)
         return "redirect:/articulos"
+    }
+
+    @GetMapping("/articulos") fun listarArticulos(model: Model):String{
+        val listaArticulos:List<articulo> =repositorioArticulo.findAll()
+        model.addAttribute("listaArticulos",listaArticulos)
+        return "articulos"
     }
 }

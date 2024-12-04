@@ -22,24 +22,44 @@
     </div>
 </nav>
 <h1>ingrese los datos de la categoria</h1>
-
 <div class="container">
     <div class="row">
         <div class="">
             <h1 class="text-center">registro de categoria</h1>
             <div class="card-body"></div>
-            <form th:action="@{/categoria}" th:object="${categoria}" method="POST">
+            <form th:action="@{/articulo/guardar}" th:object="${articulo}" method="POST">
                 <div class="form-group">
-                    <label>nombre de categoria:</label>
-                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
+                    <label>codigo</label>
+                    <input type="text" name="UPC" th:field="*{UPC}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>ingrese el impuesto IVA:</label>
-                    <input type="text" name="IVA" th:field="*{IVA}" class="form-control" placeholder="ingresarla en el siguiente formato (0.##)">
+                    <label>id de posicion:</label>
+                    <input type="text" name="posicion" th:field="*{posicion}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>ingrese el impuesto IEPS:</label>
-                    <input type="text" name="IEPS" th:field="*{IEPS}" class="form-control" placeholder="si no tiene puede dejarla en 0">
+                    <label>descripcion del articulo:</label>
+                    <input type="text" name="descripcion" th:field="*{descripcion}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>cantidad</label>
+                    <input type="text" name="cantidad" th:field="*{cantidad}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>seleccione la categoria:</label>
+                    <div class="col-sm-8"></div>
+                    <select th:field="*{categoria.nombre}" class="form-control" required>
+                        <th:block th:each="categoria:{listaCategorias}">
+                            <option th:text="${categoria.nombre}" th:value="${categoria.nombre}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ingrese el costo de compra</label>
+                    <input type="text" name="costoCompra" th:field="*{costoCompra}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>ingrese el precio de venta</label>
+                    <input type="text" name="precioVenta" th:field="*{precioVenta}" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary">guardar</button>
             </form>
@@ -47,5 +67,4 @@
     </div>
 </div>
 </body>
-</html>
 </html>

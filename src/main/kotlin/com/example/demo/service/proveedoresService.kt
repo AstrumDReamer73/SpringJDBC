@@ -1,39 +1,38 @@
 package com.example.demo.service
 
 import com.example.demo.model.compra
-import com.example.demo.model.empleadosCliente
+import com.example.demo.model.empleadosProveedor
 import com.example.demo.model.proveedor
+import com.example.demo.repository.repositorioCompras
+import com.example.demo.repository.repositorioEmpleadosProveedores
 import com.example.demo.repository.repositorioProveedores
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
-class proveedoresService @Autowired constructor(private val repositorioProveedores: repositorioProveedores){
-    fun findAll(): List<proveedor> {
-        return try { repositorioProveedores.findAll() }
-        catch (e: Exception) { throw e }
+@Service class proveedoresService(
+    private val proveedorRepository: repositorioProveedores,
+    private val empleadosProveedorRepository: repositorioEmpleadosProveedores,
+    private val compraRepository: repositorioCompras
+) {
+    fun findAll(): List<proveedor> = proveedorRepository.findAll()
+
+    fun findAllActive(): List<proveedor> = proveedorRepository.findByEliminadoFalse()
+
+    fun findAllEmpleados(rfc: String): List<empleadosProveedor> { return empleadosProveedorRepository.findByRfcEmpleador(rfc) }
+
+    fun findAllPurchases(rfc: String): List<compra> { return compraRepository.findByDestino(rfc) }
+
+    fun save(proveedor: proveedor): proveedor = proveedorRepository.save(proveedor)
+
+    fun update(proveedor: proveedor): proveedor {
+        return if (proveedorRepository.existsById(proveedor.RFC)) { proveedorRepository.save(proveedor) }
+        else { throw IllegalArgumentException("Proveedor no encontrado") }
     }
 
-    fun findAllEmpleados(RFC: String): List<empleadosCliente> {
-        return try { repositorioProveedores.findAllEmpleados(RFC) }
-        catch (e: Exception) { throw e }
-    }
-
-    fun findAllPurchases(RFC: String): List<compra> {
-        return try { repositorioProveedores.findAllPurchases(RFC) }
-        catch (e: Exception) { throw e }
-    }
-
-    fun insert(proveedor: proveedor):Int{
-        return try { repositorioProveedores.save(proveedor) }
-        catch (e:Exception){ throw e }
-    }
-
-    fun update(proveedor: proveedor): Int {
-        return try { repositorioProveedores.update(proveedor) }
-        catch (e: Exception) { throw e }
-    }
-
-    fun deleteById(RFC:String): Int {
-        return try { repositorioProveedores.deleteByID(RFC)
-        } catch (e: Exception) { throw e }
+    fun deleteById(rfc: String) {
+        val proveedor = proveedorRepository.findById(rfc)
+        if (proveedor.isPresent) {
+            val proveedorToDelete = proveedor.get().copy(eliminado = true)
+            proveedorRepository.save(proveedorToDelete)
+        } else { throw IllegalArgumentException("Proveedor no encontrado") }
     }
 }

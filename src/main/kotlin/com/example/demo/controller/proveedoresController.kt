@@ -17,13 +17,13 @@ class proveedoresController {
     @Autowired
     lateinit var repositorioProveedores: repositorioProveedores
 
-    @GetMapping("/proveedor") fun listarClientes(model: Model):String{
+    @GetMapping("/proveedores") fun listarClientes(model: Model):String{
         val listaProveedor:List<proveedor> =repositorioProveedores.findAll()
         model.addAttribute("listaProveedor",listaProveedor)
-        return "proveedor"
+        return "proveedores"
     }
 
-    @GetMapping("/proveedor/añadirCliente")fun añadirCategoria(model: Model):String{
+    @GetMapping("/proveedores/añadirCliente")fun añadirCategoria(model: Model):String{
         model.addAttribute("proveedor", categoria())
         return "añadirCategoria"
     }

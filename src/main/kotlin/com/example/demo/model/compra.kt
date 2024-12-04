@@ -1,11 +1,14 @@
 package com.example.demo.model
 
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import lombok.Data
 import java.time.LocalDateTime
 import java.util.*
 
-@Data class compra(
-    val factura:String?="",
+@Entity @Table(name="almacenes")data class compra(
+    @Id val factura:String?="",
     val motivo:String?="",
     val origen:Int?=0,
     val destino:String?="",

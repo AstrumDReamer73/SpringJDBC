@@ -9,7 +9,7 @@
 <div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">app de inventario</a>
+            <a class="navbar-brand" th:href="@{/index}">app de inventario</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -46,17 +46,17 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <tr th:each="articulos:${articulos}">
-            <td th:text="${articulos.IDAlmacen}"></td>
-            <td th:text="${articulos.nombre}"></td>
-            <td th:text="${articulos.direccion}"></td>
-            <td th:text="${articulos.territorio}"></td>
-            <td th:text="${articulos.estado}"></td>
-            <td th:text="${articulos.codPostal}"></td>
-            <td th:text="${articulos.telefono}"></td>
-            <td th:text="${articulos.capacidad}"></td>
-            <td th:text="${articulos.puertos}"></td>
-            <td th:text="${articulos.refrigeracion}"></td>
+        <tr th:each="articulos:${listaArticulos}">
+            <td th:text="${articulos.UPC}"></td>
+            <td th:text="${articulos.categoria.nombre}"></td>
+            <td th:text="${articulos.posicion.id}"></td>
+            <td th:text="${articulos.descripcion}"></td>
+            <td th:text="${articulos.cantidad}"></td>
+            <td th:text="${articulos.costoCompra}"></td>
+            <td th:text="${articulos.UltimoCostoCompra}"></td>
+            <td th:text="${articulos.precioVenta}"></td>
+            <td th:text="${articulos.UltimoPrecioVenta}"></td>
+            <td th:text="${articulos.UltimaFechaModificacion}"></td>
             <td>
                 <button>modificar</button>
                 <button>eliminar</button>
@@ -64,6 +64,7 @@
         </tr>
         </tbody>
     </table>
+    <a class="btn btn-primary" th:href="@{/articulos/agregar}">agregar productos</a>
 </div>
 </body>
 </html>

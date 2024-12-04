@@ -1,32 +1,22 @@
 package com.example.demo.service
 
-import com.example.demo.model.articulos
+import com.example.demo.model.articulo
 import com.example.demo.repository.repositorioArticulos
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
-class articulosService @Autowired constructor(private val repositorioArticulos: repositorioArticulos){
-    fun findAll(): List<articulos> {
-        return try { repositorioArticulos.findAll() }
-        catch (e: Exception) { throw e }
-    }
+@Service class articulosService (private val articulosRepository: repositorioArticulos){
+    fun findAll(): List<articulo> { return articulosRepository.findAll() }
 
-    fun findAllExistences(UPC:Int): List<articulos> {
-        return try { repositorioArticulos.findAllExistences(UPC) }
-        catch (e: Exception) { throw e }
-    }
+    fun findAllExistences(UPC: Int): List<articulo> { return articulosRepository.findByEliminadoAndUPC(false, UPC) }
 
-    fun insert(articulos: articulos):Int{
-        return try { repositorioArticulos.save(articulos) }
-        catch (e:Exception){ throw e }
-    }
+    fun save(articulos: articulo): articulo { return articulosRepository.save(articulos) }
 
-    fun update(articulos: articulos): Int {
-        return try { repositorioArticulos.update(articulos) }
-        catch (e: Exception) { throw e }
-    }
+    fun update(articulos: articulo): articulo { return articulosRepository.save(articulos) }
 
-    fun deleteById(id: Int): Int {
-        return try { repositorioArticulos.deleteByUPC(id)
-        } catch (e: Exception) { throw e }
+    fun deleteByUPC(UPC: Int) {
+        val articulo = articulosRepository.findById(UPC).orElseThrow { Exception("Artículo no encontrado") }
+        val updatedArticulo = articulo.copy(eliminado = true)
+        articulosRepository.save(updatedArticulo)
     }
 }

@@ -22,30 +22,46 @@
     </div>
 </nav>
 <h1>ingrese los datos de la categoria</h1>
-
 <div class="container">
     <div class="row">
-        <div class="">
-            <h1 class="text-center">registro de categoria</h1>
-            <div class="card-body"></div>
-            <form th:action="@{/categoria}" th:object="${categoria}" method="POST">
-                <div class="form-group">
-                    <label>nombre de categoria:</label>
-                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>ingrese el impuesto IVA:</label>
-                    <input type="text" name="IVA" th:field="*{IVA}" class="form-control" placeholder="ingresarla en el siguiente formato (0.##)">
-                </div>
-                <div class="form-group">
-                    <label>ingrese el impuesto IEPS:</label>
-                    <input type="text" name="IEPS" th:field="*{IEPS}" class="form-control" placeholder="si no tiene puede dejarla en 0">
-                </div>
-                <button type="submit" class="btn btn-primary">guardar</button>
-            </form>
-        </div>
+        <h1 class="text-center">registro de ventas</h1>
+        <form th:action="@{/compra}" th:object="${compra}" method="POST">
+            <div class="form-group">
+                <label>ingrese la factura:</label>
+                <input type="text" name="factura" th:field="*{factura}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>ingrese el motivo:</label>
+                <select class="form-select" aria-label="Default select example" name="motivo" th:field="*{motivo}"></select>
+            </div>
+            <div class="form-group">
+                <label>ingrese el almacen de origen de los articulos:</label>
+                <input type="text" name="origen" th:field="*{origen}" class="form-control" placeholder="si no tiene puede dejarla en 0">
+            </div>
+            <div class="form-group">
+                <label>ingrese la direccion de destino:</label>
+                <input type="text" name="destino" th:field="*{destino}" class="form-control">
+                <button>misma que el cliente</button>
+            </div>
+            <div class="form-group">
+                <label>ingrese el RFC del empleado que recibe el envio:</label>
+                <input type="text" name="empleado" th:field="*{empleado}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>ingrese el tipo de compra:</label>
+                <select class="form-select" aria-label="Default select example" name="tipo" th:field="*{tipo}">
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label>ingrese el estado:</label>
+                <select class="form-select" aria-label="Default select example" name="estado" th:field="*{estado}">
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">guardar</button>
+        </form>
     </div>
 </div>
-
 </body>
 </html>

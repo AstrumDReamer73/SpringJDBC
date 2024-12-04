@@ -28,18 +28,22 @@
         <div class="">
             <h1 class="text-center">registro de categoria</h1>
             <div class="card-body"></div>
-            <form th:action="@{/categoria}" th:object="${categoria}" method="POST">
+            <form th:action="@{/ubicacion}" th:object="${ubicacion}" method="POST">
                 <div class="form-group">
-                    <label>nombre de categoria:</label>
-                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
+                    <label>ingrese al almacen donde esta la ubicacion:</label>
+                    <input type="text" name="IDAlmacen" th:field="*{IDAlmacen}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>ingrese el impuesto IVA:</label>
-                    <input type="text" name="IVA" th:field="*{IVA}" class="form-control" placeholder="ingresarla en el siguiente formato (0.##)">
+                    <label>ingrese el pasillo:</label>
+                    <input type="text" name="pasillo" th:field="*{pasillo}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>ingrese el impuesto IEPS:</label>
-                    <input type="text" name="IEPS" th:field="*{IEPS}" class="form-control" placeholder="si no tiene puede dejarla en 0">
+                    <label>ingrese el nivel:</label>
+                    <input type="text" name="nivel" th:field="*{nivel}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>ingrese el estante:</label>
+                    <input type="text" name="estante" th:field="*{estante}" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary">guardar</button>
             </form>
