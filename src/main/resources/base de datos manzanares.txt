@@ -1,4 +1,5 @@
 base de datos manzanares
+
 create table almacenes(
 IDAlmacen int identity primary key,
 nombre varchar(50) not null,
@@ -39,8 +40,11 @@ FechadeAlta date,
 eliminado bit
 )
 
-create table empleado(
+//single FK
+
+create table empleadoProveedor(
 RFC varchar(13) primary key,
+RFCProveedor varchar(13) foreign key references proveedores(RFC)
 nombre varchar(50) not null,
 direccion varchar(100) not null,
 territorio varchar(50),
@@ -54,7 +58,8 @@ eliminado bit
 
 create table articulos(
 UPC varchar(12) primary key,
-posicion int foreign key references ubicacion(IDUbicacion),
+idposicion int foreign key references ubicacion(IDUbicacion),
+idcategoria inf foreign key references categorias(IDCategorias),
 descripcion varchar(100) not null,
 cantidad int not null,
 costoCompra decimal(10,2),
@@ -85,9 +90,7 @@ almacen int foreign key references almacenes(IDAlmacen),
 motivo varchar(50),
 FechayHora dateTime,
 tipo varchar(50),
-destino varchar(50),
-origen varchar(50),
-empleado varchar(13),
+empleado varchar(13) foreign key references empleadosProveedor(RFCProveedor),
 estado varchar(50)
 )
 
@@ -105,20 +108,41 @@ total decimal(10,2)
 
 create table ventas(
 factura varchar(20) primary key,
-almacen int, 
-producto int,
+almacenOrigen int foreign key references almacenes(IDAlmacen), 
+cliente varchar(13) foreign key references clientes(RFC)
 motivo varchar(50),
 FechayHora dateTime,
 tipo varchar(50),
 destino varchar(100),
-origen varchar(100),
-empleado varchar(13),
+empleado varchar(13) foreign key references empleadosProveedor(RFCProveedor),
 estado varchar(30)
 )
 
 create table detallesVentas(
 IDDetalledeVenta int identity primary key,
 factura varchar(20) foreign key references ventas(factura),
+UPC int foreign key references articulos(UPC),
+categoria int,
+cantidad int,
+iva decimal(10,2),
+ieps decimal(10,2),
+subtotal decimal(10,2), 
+total decimal(10,2)
+)
+
+create table traslados(
+idtraslado int identity primary key
+almacenOrigen int foreign key references almacenes(IDAlmacen), 
+almacenDestino int foreign key references almacenes(IDAlmacen), 
+motivo varchar(50),
+tipo varchar(50),
+fechayhora datetime,
+estado varchar(30)
+)
+
+create table detallesTraslados(
+IDDetalledeTraslado int identity primary key,
+idtraslado int foreign key references traslados(idtraslado),
 UPC int foreign key references articulos(UPC),
 categoria int,
 cantidad int,
