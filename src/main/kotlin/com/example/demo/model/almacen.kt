@@ -1,19 +1,18 @@
 package com.example.demo.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
-@Entity @Table(name="almacenes") data class almacen(
-    @Id val IDAlmacen:Int?=0,
-    val nombre:String?="",
-    val direccion:String?="",
-    val territorio:String?="",
-    val estado:String?="",
-    val codPostal:String?="",
-    val telefono:String?="",
-    val capacidad:Int?=0,
-    val puertos:Int?=0,
-    val refrigeracion:Boolean?=false,
-    val eliminado:Boolean=false
+@Entity @Table(name = "almacenes") data class almacen(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var IDAlmacen: Int = 0,
+    var nombre: String? = "",
+    var direccion: String? = "",
+    var territorio: String? = "",
+    var estado: String? = "",
+    var codPostal: String? = "",
+    var telefono: String? = "",
+    var capacidad: Int? = 0,
+    var puertos: Int? = 0,
+    var refrigeracion: Boolean? = false,
+    var eliminado: Boolean = false,
+    //@OneToMany(mappedBy = "almacen", cascade = [CascadeType.ALL], fetch = FetchType.LAZY) var ubicacionesRelacion: MutableList<ubicacion> = mutableListOf()
 )

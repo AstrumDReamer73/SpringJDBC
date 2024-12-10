@@ -11,16 +11,36 @@ import org.springframework.web.bind.annotation.PostMapping
 
 import org.springframework.web.bind.annotation.*
 
-@RestController @RequestMapping("/almacenes") class almacenesController(private val almacenService: almacenService) {
-    @GetMapping fun findAll(): List<almacen> = almacenService.findAll()
+@Controller @RequestMapping("/listaAlmacenes") class almacenesController() {
+    @Autowired private lateinit var almacenService: almacenService
 
-    @GetMapping("/activos") fun findAllActive(): List<almacen> = almacenService.findAllActive()
+    @GetMapping fun findAll(model: Model):String {
+        model.addAttribute("almacenes",almacenService.findAll())
+        return "listaAlmacenes"
+    }
 
-    @GetMapping("/{id}/articulos") fun findAllArticles(@PathVariable id: Int): List<articulo> = almacenService.findAllArticles(id)
+    @GetMapping("/activos") fun findAllActive(model: Model):String {
+        model.addAttribute("almacenes",almacenService.findAllActive())
+        return "listaAlmacenes"
+    }
 
-    @PostMapping fun save(@RequestBody almacen: almacen): almacen = almacenService.save(almacen)
+    @GetMapping("/{id}/articulos") fun findAllArticles(@PathVariable id: Int,model: Model):String {
+        model.addAttribute("articulos",almacenService.findAllArticles(id))
+        return "listaAlmacenes"
+    }
 
-    @PutMapping("/{id}") fun update(@PathVariable id: Int, @RequestBody almacen: almacen): almacen { return almacen.copy(IDAlmacen = id).let { almacenService.update(it) } }
+    @PostMapping fun save(@RequestBody almacen: almacen): String {
+        almacenService.save(almacen)
+        return "redirect:/añadirAlmacenes"
+    }
 
-    @DeleteMapping("/{id}") fun deleteById(@PathVariable id: Int) = almacenService.deleteById(id)
+    @PutMapping("/{id}/update") fun update(@PathVariable id: Int, @RequestBody almacen: almacen): String {
+        almacen.copy(IDAlmacen = id).let { almacenService.update(it) }
+        return "redirect:/listaAlmacenes"
+    }
+
+    @DeleteMapping("/{id}/delete") fun deleteById(@PathVariable id: Int):String {
+        almacenService.deleteById(id)
+        return "redirect:/listaAlmacenes"
+    }
 }

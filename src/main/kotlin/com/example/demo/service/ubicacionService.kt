@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
     fun findAll(): List<ubicacion> { return ubicacionRepository.findAll() }
 
-    fun findAllActive(): List<ubicacion> { return ubicacionRepository.findByEliminado(false) }
+    fun findAllActive(): List<ubicacion> { return ubicacionRepository.findByEliminadoFalse() }
 
     fun save(ubicacion: ubicacion): ubicacion { return ubicacionRepository.save(ubicacion) }
 

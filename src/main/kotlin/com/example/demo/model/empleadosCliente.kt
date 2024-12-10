@@ -1,21 +1,19 @@
 package com.example.demo.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import lombok.Data
 import java.util.*
 
 @Entity @Table(name="empleadosClientes")data class empleadosCliente(
-    @Id val RFC:String?="",
-    val RFCEmpleador:String?="",
-    val nombre:String?="",
-    val direccion:String?="",
-    val territorio:String?="",
-    val estado:String?="",
-    val codPostal:String?="",
-    val telefono:String?="",
-    val correo:String?="",
-    val fechaAlta: Date?=Date(),
-    val eliminado:Boolean?=false
+    @Id var RFC:String="",
+    @ManyToOne @JoinColumn(name="RFCEmpleador") var RFCEmpleador:cliente?=null,
+    var nombre:String?="",
+    var direccion:String?="",
+    var territorio:String?="",
+    var estado:String?="",
+    var codPostal:String?="",
+    var telefono:String?="",
+    var correo:String?="",
+    var fechaAlta: Date?=Date(),
+    var eliminado:Boolean?=false
 )

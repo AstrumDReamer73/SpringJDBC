@@ -1,24 +1,47 @@
 package com.example.demo.controller
 
 import com.example.demo.model.cliente
-import com.example.demo.model.empleadosCliente
-import com.example.demo.model.venta
 import com.example.demo.service.clientesService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
-@RestController @RequestMapping("/clientes") class clientesController(private val clienteService: clientesService) {
+@Controller @RequestMapping("/listaClientes") class clientesController{
+    @Autowired private lateinit var clientesService: clientesService
 
-    @GetMapping fun findAll(): List<cliente> = clienteService.findAll()
+    @GetMapping fun findAll(model: Model):String {
+        model.addAttribute("clientes",clientesService.findAllCustomers())
+        return "listaClientes"
+    }
 
-    @GetMapping("/activos") fun findAllActive(): List<cliente> = clienteService.findAllActive()
+    @GetMapping("/activos") fun findAllActive(model: Model):String{
+        model.addAttribute("clientes",clientesService.findAllActiveCustomers())
+        return "redirect:/listaClientes"
+    }
 
-    @GetMapping("/{rfc}/empleados") fun findAllEmpleados(@PathVariable rfc: String): List<empleadosCliente> { return clienteService.findAllEmpleados(rfc) }
+    @GetMapping("/{rfc}/empleados") fun findAllEmpleados(@PathVariable rfc: String,model: Model):String {
+        model.addAttribute("clientes",clientesService.findEmpleadosbyEmployer(rfc))
+        return "listaEmpleadosProveedores"
+    }
 
-    @GetMapping("/{rfc}/ventas") fun findAllSells(@PathVariable rfc: String): List<venta> { return clienteService.findAllSells(rfc) }
+    @GetMapping("/{rfc}/ventas") fun findAllSells(@PathVariable rfc: String,model: Model):String{
+        model.addAttribute("clientes",clientesService.findSellsByCliente(rfc))
+        return "listaVentas"
+    }
 
-    @PostMapping fun save(@RequestBody cliente: cliente): cliente = clienteService.save(cliente)
+    @PostMapping("/añadirCliente") fun save(@RequestBody cliente: cliente): String {
+        clientesService.saveCustomer(cliente)
+        return "redirect:/añadirCliente"
+    }
 
-    @PutMapping("/{rfc}") fun update(@PathVariable rfc: String, @RequestBody cliente: cliente): cliente { return cliente.copy(RFC = rfc).let { clienteService.update(it) } }
+    @PutMapping("/{rfc}") fun update(@PathVariable rfc: String, @RequestBody cliente: cliente): String {
+        cliente.copy(RFC=rfc).let{clientesService.updateCustomer(it)}
+        return "redirect:/listaClientes"
+    }
 
-    @DeleteMapping("/{rfc}") fun deleteById(@PathVariable rfc: String) = clienteService.deleteByRFC(rfc)
+    @DeleteMapping("/{rfc}") fun delete(@PathVariable rfc: String):String {
+        clientesService.deleteCustomerbyRFC(rfc)
+        return "redirect:/listaClientes"
+    }
 }

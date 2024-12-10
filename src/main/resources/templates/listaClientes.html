@@ -25,7 +25,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <h1>lista de categorias</h1>
+            <h1>lista de clientes</h1>
         </div>
     </div>
     <br>
@@ -45,7 +45,7 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <tr th:each="clientes:${listaClientes}">
+        <tr th:each="clientes:${clientes}">
             <td th:text="${clientes.RFC}">factura</td>
             <td th:text="${clientes.nombre}">nombre</td>
             <td th:text="${clientes.direccion}">direccion</td>
@@ -54,14 +54,15 @@
             <td th:text="${clientes.codPostal}">codigo postal</td>
             <td th:text="${clientes.telefono}">telefono</td>
             <td th:text="${clientes.correo}">correo</td>
-            <td th:text="${clientes.fechaAlta}">fecha de alta</td>
-            <td>
-                <button>modificar</button>
-                <button>eliminar</button>
+            <td th:text="${clientes.fechadeAlta}">fecha de alta</td>
+            <td style="white-space:nowrap">
+                <a class="btn btn-primary btn-sm" th:href="@{/clientes/editar/id=${clientes.RFC}}">modificar</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/clientes/eliminar/id=${clientes.RFC}}" onclick="return confirm('estas seguro')">eliminar</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <a class="btn btn-primary btn-sm" th:href="@{/añadirCliente}">agregar</a>
 </div>
 </body>
 </html>

@@ -25,7 +25,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <h1>lista de articulos</h1>
+            <h1>lista de almacenes</h1>
         </div>
     </div>
     <br>
@@ -39,14 +39,14 @@
         <th scope="col">estado</th>
         <th scope="col">codigo postal</th>
         <th scope="col">telefono</th>
-        <th scope="col">capacidad</th>
+        <th scope="col">capacidad en posiciones</th>
         <th scope="col">puertos</th>
         <th scope="col">refrigeracion</th>
         <th scope="col"></th>
     </tr>
     </thead>
     <tbody class="table-group-divider">
-    <tr th:each="almacen:${almacen}">
+    <tr th:each="almacen:${almacenes}">
         <td th:text="${almacen.IDAlmacen}">IDAlmacen</td>
         <td th:text="${almacen.nombre}">nombre</td>
         <td th:text="${almacen.direccion}">direccion</td>
@@ -62,6 +62,7 @@
             <a class="btn btn-primary btn-sm" th:href="@{/almacenes/eliminar/id=${almacen.id}}" onclick="return confirm('estas seguro')">eliminar</a>
         </td>
     </tr>
+
     </tbody>
 </table>
 </div>

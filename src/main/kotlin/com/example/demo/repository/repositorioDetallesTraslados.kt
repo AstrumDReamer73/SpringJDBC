@@ -1,7 +1,6 @@
 package com.example.demo.repository
 
-import com.example.demo.model.compra
-import com.example.demo.model.detallesdeCompra
+import com.example.demo.model.detallesTraslado
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
@@ -9,13 +8,12 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
-@Repository
-public interface repositorioDetallesdeCompras : JpaRepository<detallesdeCompra, Int> {
-    @Query("select d from detallesdeCompra d where d.factura=:factura")
-    fun findbyPurchase(@Param("factura")factura: String): List<detallesdeCompra>
-
+@Repository interface repositorioDetallesTraslados:JpaRepository<detallesTraslado,String> {
     @Transactional
     @Modifying
-    @Query("DELETE FROM detallesdeCompra d WHERE d.IDDetalledeCompra =: id")
+    @Query("DELETE FROM detallesTraslado d WHERE d.IDDetallesTraslado =: id")
     fun deleteByID(@Param("id") id: Int): Int
+
+    @Query("select d from detallesTraslado d where d.IDTraslado=:IDTraslado")
+    fun findByTraslado(@Param("IDTraslado")IDTraslado: Int):List<detallesTraslado>
 }

@@ -1,35 +1,33 @@
 package com.example.demo.controller
 
-import com.example.demo.model.compra
 import com.example.demo.model.detallesdeCompra
-import com.example.demo.repository.repositorioCompras
-import com.example.demo.repository.repositorioDetallesdeCompras
-import com.example.demo.repository.repositorioDetallesdeVentas
+import com.example.demo.service.proveedoresService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.*
 
+@Controller @RequestMapping("/detallesdecompras") class detallesdeComprasController {
+    @Autowired private lateinit var proveedoresService: proveedoresService
 
-@Controller
-class detallesdeComprasController {
-    @Autowired
-    lateinit var repositorioDetallesdeCompras: repositorioDetallesdeCompras
-
-    @GetMapping("/detallesdeCompras") fun listardetallesdeCompras(model: Model):String{
-        val listadetallesdeCompras:List<detallesdeCompra> =repositorioDetallesdeCompras.findAll()
-        model.addAttribute("listaClientes",listadetallesdeCompras)
-        return "detallesdeCompra"
+    @GetMapping("/{factura}") fun findByFactura(@PathVariable factura: String,model: Model):String {
+        model.addAttribute("detallesdeCompras",proveedoresService.findDetallesDeCompraByFactura(factura))
+        return "detallesdeCompras"
     }
 
-    @GetMapping("/detallesdeCompras/añadirdetallesdeCompras")fun agregardetallesdeCompras(model: Model):String{
-        model.addAttribute("detallesdeCompra", detallesdeCompra())
-        return "añadirCategoria"
+    @PostMapping("/añadirDetallesdeCompra") fun save(@RequestBody detallesDeCompra: detallesdeCompra): String {
+        proveedoresService.saveDetallesDeCompra(detallesDeCompra)
+        return "redirect:/detallesdeCompra"
     }
 
-    @PostMapping("/detallesdeCompras/guardar") fun guardardetallesdeCompras(detallesdeCompra: detallesdeCompra):String{
-        repositorioDetallesdeCompras.save(detallesdeCompra)
+    @PutMapping("/{id}") fun update(@PathVariable id: Int, @RequestBody detallesdeCompra: detallesdeCompra): String  {
+        detallesdeCompra.copy(IDDetalledeCompra = id).let { proveedoresService.updateDetallesDeCompra(it) }
+        return "redirect:/detallesdeCompra"
+    }
+
+    @DeleteMapping("/{id}") fun deleteById(@PathVariable id: Int):String{
+        proveedoresService.deleteDetallesDeCompraById(id)
         return "redirect:/detallesdeCompra"
     }
 }

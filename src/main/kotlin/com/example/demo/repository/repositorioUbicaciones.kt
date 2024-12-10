@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository interface repositorioUbicaciones: JpaRepository<ubicacion, Int> {
-    fun findByEliminado(eliminado: Boolean): List<ubicacion>
+    fun findByEliminadoFalse(): List<ubicacion>
 }

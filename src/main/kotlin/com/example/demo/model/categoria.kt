@@ -2,10 +2,11 @@ package com.example.demo.model
 import jakarta.persistence.*
 import java.math.BigDecimal
 
-@Entity @Table(name="almacenes") data class categoria(
-    @Id val IDCategoria:Int=0,
-    val nombre:String="",
-    val IVA:BigDecimal=BigDecimal.ZERO,
-    val IEPS:BigDecimal=BigDecimal.ZERO,
-    val eliminado:Boolean=false
+@Entity @Table(name = "categorias") data class categoria(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var IDCategoria: Int = 0,
+    var nombre: String = "",
+    var IVA: BigDecimal = BigDecimal.ZERO,
+    var IEPS: BigDecimal = BigDecimal.ZERO,
+    var eliminado: Boolean = false,
+    //@OneToMany(mappedBy = "categoria", cascade = [CascadeType.ALL], fetch = FetchType.LAZY) var articulos: MutableList<articulo>? = mutableListOf() // Relación inversa
 )

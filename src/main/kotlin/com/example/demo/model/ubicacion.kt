@@ -2,10 +2,13 @@ package com.example.demo.model
 
 import jakarta.persistence.*
 
-@Entity @Table(name="ubicaciones")data class ubicacion(
-    @Id val IDUbicacion:Int?=0,
-    val IDAlmacen:Int?=0,
-    val pasillo:Int?=0,
-    val nivel:Int?=0,
-    val estante:Int?=0
+@Entity
+@Table(name = "ubicaciones")
+data class ubicacion(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var IDUbicacion: Int? = 0,
+    @ManyToOne @JoinColumn(name = "IDAlmacen", nullable = false) var almacen: almacen?=null, // Relación Many-to-One con `Almacen`
+    var pasillo: Int? = 0,
+    var nivel: Int? = 0,
+    var estante: Int? = 0,
+    var eliminado: Boolean = false
 )

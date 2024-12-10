@@ -1,0 +1,129 @@
+base de datos manzanares
+create table almacenes(
+IDAlmacen int identity primary key,
+nombre varchar(50) not null,
+direccion varchar(100) not null,
+territorio varchar(30) not null,
+estado varchar(30) not null,
+CodPostal varchar(5) not null,
+telefono varchar(15) not null,
+capacidad int,
+puertos int,
+refrigeracion bit,
+eliminado bit
+)
+
+create table clientes(
+RFC varchar(13) primary key,
+nombre varchar(50) not null,
+direccion varchar(100) not null,
+territorio varchar(50),
+estado varchar(50),
+CodPostal varchar(5),
+telefono varchar(15),
+correo varchar(50),
+FechadeAlta date,
+eliminado bit
+)
+
+create table proveedores(
+RFC varchar(13) primary key,
+nombre varchar(50) not null,
+direccion varchar(100) not null,
+territorio varchar(50),
+estado varchar(50),
+CodPostal varchar(5),
+telefono varchar(15),
+correo varchar(50),
+FechadeAlta date,
+eliminado bit
+)
+
+create table empleado(
+RFC varchar(13) primary key,
+nombre varchar(50) not null,
+direccion varchar(100) not null,
+territorio varchar(50),
+estado varchar(50),
+CodPostal varchar(5),
+telefono varchar(15),
+correo varchar(50),
+FechadeAlta date,
+eliminado bit
+)
+
+create table articulos(
+UPC varchar(12) primary key,
+posicion int foreign key references ubicacion(IDUbicacion),
+descripcion varchar(100) not null,
+cantidad int not null,
+costoCompra decimal(10,2),
+UltimoCostoCompra decimal(10,2),
+precioVenta decimal(10,2),
+UltimoPrecioVenta decimal(10,2),
+UltimaFechaModificacion date,
+eliminado bit
+)
+
+create table categoria(
+IDCategoria int identity primary key,
+iva decimal(10,2) not null,
+ieps decimal(10,2)
+)
+
+create table ubicacion(
+IDUbicacion int identity primary key,
+IDAlmacen int foreign key references almacenes(IDAlmacen),
+pasillo int,
+nivel int,
+estante int
+)
+
+create table compras(
+factura varchar(20) primary key,
+almacen int foreign key references almacenes(IDAlmacen), 
+motivo varchar(50),
+FechayHora dateTime,
+tipo varchar(50),
+destino varchar(50),
+origen varchar(50),
+empleado varchar(13),
+estado varchar(50)
+)
+
+create table detallesCompras(
+IDDetalledeCompra int identity primary key,
+factura varchar(20) foreign key references compras(factura),
+UPC int,
+categoria int,
+cantidad int,
+iva decimal(10,2),
+ieps decimal(10,2),
+subtotal decimal(10,2), 
+total decimal(10,2)
+)
+
+create table ventas(
+factura varchar(20) primary key,
+almacen int, 
+producto int,
+motivo varchar(50),
+FechayHora dateTime,
+tipo varchar(50),
+destino varchar(100),
+origen varchar(100),
+empleado varchar(13),
+estado varchar(30)
+)
+
+create table detallesVentas(
+IDDetalledeVenta int identity primary key,
+factura varchar(20) foreign key references ventas(factura),
+UPC int foreign key references articulos(UPC),
+categoria int,
+cantidad int,
+iva decimal(10,2),
+ieps decimal(10,2),
+subtotal decimal(10,2), 
+total decimal(10,2)
+)

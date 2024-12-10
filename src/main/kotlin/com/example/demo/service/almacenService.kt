@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 
     fun findAllActive(): List<almacen> { return almacenRepository.findByEliminadoFalse() }
 
-    fun findAllArticles(UPC: Int): List<articulo> { return articuloRepository.findByEliminadoAndUPC(false,UPC) }
+    fun findAllArticles(UPC: Int): List<articulo> { return articuloRepository.findbyUPC(UPC) }
 
     fun save(almacen: almacen): almacen { return almacenRepository.save(almacen) }
 

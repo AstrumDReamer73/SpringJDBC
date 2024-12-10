@@ -4,16 +4,16 @@ import jakarta.persistence.*
 import java.math.BigDecimal
 import java.util.Date
 
-@Entity @Table(name="almacenes") data class articulo(
-    @Id val UPC:Int=0,
-    @OneToOne @JoinColumn(name="IDPosicion") val posicion:ubicacion?=null,
-    val descripcion:String="",
-    val cantidad:Int=0,
-    @OneToOne @JoinColumn(name="IDCategoria") val categoria:categoria?=null,
-    val costoCompra:BigDecimal= BigDecimal.ZERO,
-    val ultimoCostoCompra:BigDecimal= BigDecimal.ZERO,
-    val precioVenta:BigDecimal= BigDecimal.ZERO,
-    val ultimoPrecioVenta:BigDecimal= BigDecimal.ZERO,
-    val ultimaFechaModificacion:Date=Date(),
-    val eliminado:Boolean=false
+@Entity @Table(name="articulos") data class articulo(
+    @Id var UPC:Int=0,
+    @OneToOne @JoinColumn(name="idposicion") var ubicacion:ubicacion?=null,
+    var descripcion:String="",
+    var cantidad:Int=0,
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name="idcategoria") var categoria:categoria?=null,
+    var costoCompra:BigDecimal= BigDecimal.ZERO,
+    var ultimoCostoCompra:BigDecimal= BigDecimal.ZERO,
+    var precioVenta:BigDecimal= BigDecimal.ZERO,
+    var ultimoPrecioVenta:BigDecimal= BigDecimal.ZERO,
+    var ultimaFechaModificacion:Date=Date(),
+    var eliminado:Boolean=false
 )
