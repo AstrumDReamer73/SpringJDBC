@@ -11,5 +11,5 @@ import java.math.BigDecimal
     var IVA: BigDecimal? = BigDecimal.ZERO,
     var IEPS: BigDecimal? = BigDecimal.ZERO,
     var Subtotal: BigDecimal? = BigDecimal.ZERO,
-    var total: BigDecimal? = BigDecimal.ZERO,
+    var total: BigDecimal? = BigDecimal.ZERO
 )

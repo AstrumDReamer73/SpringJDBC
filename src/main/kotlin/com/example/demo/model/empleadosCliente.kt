@@ -2,9 +2,10 @@ package com.example.demo.model
 
 import jakarta.persistence.*
 import lombok.Data
+import java.time.LocalDateTime
 import java.util.*
 
-@Entity @Table(name="empleadosClientes")data class empleadosCliente(
+@Entity @Table(name="empleados_Clientes")data class empleadosCliente(
     @Id var RFC:String="",
     @ManyToOne @JoinColumn(name="RFCEmpleador") var RFCEmpleador:cliente?=null,
     var nombre:String?="",
@@ -14,6 +15,6 @@ import java.util.*
     var codPostal:String?="",
     var telefono:String?="",
     var correo:String?="",
-    var fechaAlta: Date?=Date(),
+    var fechaAlta: LocalDateTime?=LocalDateTime.now(),
     var eliminado:Boolean?=false
 )

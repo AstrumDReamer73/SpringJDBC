@@ -1,5 +1,7 @@
 package com.example.demo.repository
 
+import com.example.demo.model.articulo
+import com.example.demo.model.compra
 import com.example.demo.model.venta
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -12,11 +14,23 @@ interface repositorioVentas : JpaRepository<venta, String> {
     fun findByEliminadoFalse(): List<venta>
 
     @Query("select v from venta v where v.almacenOrigen=:almacenOrigen")
-    fun findByOrigen(@Param("almacenOrigen") almacenOrigen:String):List<venta>
+    fun findByOrigen(@Param("almacenOrigen") almacenOrigen:String?):List<venta>
 
     @Query("select v from venta v where v.empleado=:empleado")
-    fun findByEmployee(@Param("empleado") origen: String): List<venta>
+    fun findByEmployee(@Param("empleado") origen: String?): List<venta>
 
-    @Query("select v from venta v where v.cliente=:cliente")
-    fun findByCustomer(@Param("cliente") cliente: String):List<venta>
+    @Query("select v from venta v where v.cliente.RFC=:cliente")
+    fun findByCustomer(@Param("cliente") cliente: String?):List<venta>
+
+    @Query("select v from venta v where v.estado=:estado")
+    fun findByEstado(@Param("estado") estado: String?):List<venta>
+
+    @Query("select v from venta v where v.factura=:factura")
+    fun findByFactura(@Param("factura") factura: String?):venta
+
+    @Query("select c from venta c order by c.fechayhora asc")
+    fun findByfechayhoraAsc(): List<venta>
+
+    @Query("select c from venta c order by c.fechayhora desc")
+    fun findByfechayhoraDesc(): List<venta>
 }

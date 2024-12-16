@@ -15,4 +15,7 @@ import org.springframework.stereotype.Repository
 
     @Query("select d from traslado d where d.almacenDestino=:almacenDestino")
     fun findByDestino(@Param("almacenDestino")almacenDestino:String):List<traslado>
+
+    @Query("select d from traslado d where d.IDTraslado=:IDTraslado")
+    fun findbyID(@Param("IDTraslado")IDTraslado:Int):traslado
 }

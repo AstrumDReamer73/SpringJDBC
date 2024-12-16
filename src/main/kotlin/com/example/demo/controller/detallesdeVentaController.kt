@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
         return "detallesdeVentas"
     }
 
-    @PostMapping fun save(@RequestBody detallesdeVenta: detallesdeVenta,model: Model): String {
+    @PostMapping fun save(@ModelAttribute detallesdeVenta: detallesdeVenta,model: Model): String {
         model.addAttribute("detallesdeVentas",clienteService.saveDetallesDeVenta(detallesdeVenta))
         return "redirect:/detallesdeVentas"
     }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
     fun findAllExistences(UPC: Int): List<articulo> = articulosRepository.findbyUPC(UPC)
 
-    fun findAllActive(): List<articulo> = articulosRepository.findByEliminadoFalse()
+    fun findAllActive(): List<articulo> = articulosRepository.findAllActive()
 
     fun findByCategoria(idcategoria:Int):List<articulo> = articulosRepository.findByCategoria(idcategoria)
 
@@ -22,4 +22,6 @@ import org.springframework.stereotype.Service
         val updatedArticulo = articulo.copy(eliminado = true)
         articulosRepository.save(updatedArticulo)
     }
+
+    fun findbyUPC(upc: Int):List<articulo> = articulosRepository.findbyUPC(upc)
 }

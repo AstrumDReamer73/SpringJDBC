@@ -3,33 +3,49 @@ package com.example.demo.controller
 import com.example.demo.model.empleadosProveedor
 import com.example.demo.service.proveedoresService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
-@RestController @RequestMapping("/listaEmpleadosProveedor") class empleadosProveedoresController {
+@Controller @RequestMapping("/listaEmpleadosProveedores") class empleadosProveedoresController {
     @Autowired private lateinit var proveedoresService: proveedoresService
 
     @GetMapping fun findAll(model: Model):String {
-        model.addAttribute("empleadosProveedores",proveedoresService.findAll())
-        return "listaEmpleadosProveedor"
+        model.addAttribute("empleadosProveedores",proveedoresService.findAllEmpleados())
+        return "listaEmpleadosProveedores"
     }
 
     @GetMapping("/activos") fun findAllActive(model: Model):String {
         model.addAttribute("empleadosProveedores",proveedoresService.findAllActiveEmpleados())
-        return "listaEmpleadosProveedor"
+        return "listaEmpleadosProveedores"
     }
 
-    @PostMapping fun save(@RequestBody empleadosProveedor: empleadosProveedor,model: Model):String {
-        model.addAttribute("empladosProveedores",proveedoresService.save(empleadosProveedor))
-        return "listaEmpleadosProveedor"
+    @GetMapping("/añadirEmpleadoProveedor")
+    fun showAddForm(model: Model): String {
+        model.addAttribute("empleadosProveedor", empleadosProveedor())
+        model.addAttribute("listaProveedores",proveedoresService.findAllSuppliers())
+        return "añadirEmpleadoProveedor"
     }
 
-    @PutMapping("7{rfc}") fun update(@PathVariable rfc:String,@RequestBody empleadosProveedor: empleadosProveedor):String {
-        empleadosProveedor.copy(RFC = rfc).let { proveedoresService.update(it) }
-        return "redirect:/listaEmpleadosProveedor"
+    @PostMapping("/guardar") fun save(@ModelAttribute empleadosProveedor: empleadosProveedor,model: Model):String{
+        model.addAttribute("empleadosProveedor",proveedoresService.save(empleadosProveedor))
+        return "listaEmpleadosProveedores"
     }
-    @DeleteMapping("/{rfc}")fun delete(@PathVariable rfc:String):String {
-        proveedoresService.deleteById(rfc)
-        return "redirect:/listaEmpleadosProveedor"
+
+    @GetMapping("/editar/{RFC}")fun showEditForm(@PathVariable RFC:String,model: Model):String{
+        val empleadosCliente =proveedoresService.findEmpleadobyRFC(RFC)
+        model.addAttribute("empleadosProveedor", empleadosCliente)
+        model.addAttribute("listaProveedores",proveedoresService.findAllActiveSuppliers())
+        return "editarEmpleadoProveedor"
+    }
+
+    @PostMapping("/actualizar/{RFC}")fun update(empleadosProveedor: empleadosProveedor):String{
+        proveedoresService.update(empleadosProveedor)
+        return "redirect:/listaEmpleadosProveedores"
+    }
+
+    @GetMapping("eliminar/{RFC}")fun delete(@PathVariable RFC: String):String{
+        proveedoresService.deletebyRFC(RFC)
+        return "redirect:/listaEmpleadosProveedores"
     }
 }

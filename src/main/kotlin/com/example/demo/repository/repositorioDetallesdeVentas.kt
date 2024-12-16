@@ -1,9 +1,6 @@
 package com.example.demo.repository
 
-import com.example.demo.model.compra
-import com.example.demo.model.detallesdeCompra
-import com.example.demo.model.detallesdeVenta
-import com.example.demo.model.venta
+import com.example.demo.model.*
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.jpa.repository.JpaRepository
@@ -23,4 +20,5 @@ interface repositorioDetallesdeVentas : JpaRepository<detallesdeVenta, Int> {
     @Modifying
     @Query("DELETE FROM detallesdeVenta d WHERE d.IDDetalledeVenta = id")
     fun deleteByID(@Param("id") id: Int): Int
+
 }

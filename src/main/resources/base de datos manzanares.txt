@@ -1,4 +1,4 @@
-base de datos manzanares
+
 create table almacenes(
 IDAlmacen int identity primary key,
 nombre varchar(50) not null,
@@ -39,8 +39,9 @@ FechadeAlta date,
 eliminado bit
 )
 
-create table empleado(
+create table empleadosClientes(
 RFC varchar(13) primary key,
+RFCEmpleador varchar(13) foreign key references clientes(rfc),
 nombre varchar(50) not null,
 direccion varchar(100) not null,
 territorio varchar(50),
@@ -52,9 +53,39 @@ FechadeAlta date,
 eliminado bit
 )
 
+create table empleadosProveedores(
+RFC varchar(13) primary key,
+RFCEmpleador varchar(13) foreign key references proveedores(rfc),
+nombre varchar(50) not null,
+direccion varchar(100) not null,
+territorio varchar(50),
+estado varchar(50),
+CodPostal varchar(5),
+telefono varchar(15),
+correo varchar(50),
+FechadeAlta date,
+eliminado bit
+)
+
+create table categoria(
+IDCategoria int identity primary key,
+nombre varchar(30),
+iva decimal(10,2) not null,
+ieps decimal(10,2),
+eliminado bit,
+)
+
+create table ubicacion(
+IDUbicacion int identity primary key,
+IDAlmacen int foreign key references almacenes(IDAlmacen),
+pasillo int,
+nivel int,
+estante int
+)
 create table articulos(
-UPC varchar(12) primary key,
+UPC int primary key,
 posicion int foreign key references ubicacion(IDUbicacion),
+categoria int foreign key references categoria(IDCategoria),
 descripcion varchar(100) not null,
 cantidad int not null,
 costoCompra decimal(10,2),
@@ -65,48 +96,35 @@ UltimaFechaModificacion date,
 eliminado bit
 )
 
-create table categoria(
-IDCategoria int identity primary key,
-iva decimal(10,2) not null,
-ieps decimal(10,2)
-)
-
-create table ubicacion(
-IDUbicacion int identity primary key,
-IDAlmacen int foreign key references almacenes(IDAlmacen),
-pasillo int,
-nivel int,
-estante int
-)
-
 create table compras(
 factura varchar(20) primary key,
-almacen int foreign key references almacenes(IDAlmacen), 
+almacenDestino int foreign key references almacenes(IDAlmacen),
+proveedores varchar(13) foreign key references proveedores(rfc),
 motivo varchar(50),
 FechayHora dateTime,
 tipo varchar(50),
 destino varchar(50),
 origen varchar(50),
-empleado varchar(13),
+empleado varchar(13) foreign key references empleadosProveedores(RFC),
 estado varchar(50)
 )
 
 create table detallesCompras(
 IDDetalledeCompra int identity primary key,
 factura varchar(20) foreign key references compras(factura),
-UPC int,
+UPC int foreign key references articulos(upc),
 categoria int,
 cantidad int,
 iva decimal(10,2),
 ieps decimal(10,2),
-subtotal decimal(10,2), 
+subtotal decimal(10,2),
 total decimal(10,2)
 )
 
 create table ventas(
 factura varchar(20) primary key,
-almacen int, 
-producto int,
+almacenOrigen int foreign key references almacenes(IDalmacen),
+clientes varchar(13) foreign key references proveedores(rfc),
 motivo varchar(50),
 FechayHora dateTime,
 tipo varchar(50),
@@ -124,6 +142,27 @@ categoria int,
 cantidad int,
 iva decimal(10,2),
 ieps decimal(10,2),
-subtotal decimal(10,2), 
+subtotal decimal(10,2),
 total decimal(10,2)
+)
+
+create table traslados(
+idtraslado int identity primary key,
+almacenOrigen int foreign key references almacenes(idAlmacen),
+almacenDestino int foreign key references almacenes(idAlmacen),
+fechayhora datetime,
+estado varchar(20)
+)
+
+create table detallesTraslados(
+iddetallestraslado int identity primary key,
+idtraslado int foreign key references traslados(idtraslado),
+UPC int foreign key references articulos(UPC),
+categoria int,
+cantidad int,
+iva decimal(10,2),
+ieps decimal(10,2),
+subtotal decimal(10,2),
+total decimal(10,2),
+estado varchar(20)
 )

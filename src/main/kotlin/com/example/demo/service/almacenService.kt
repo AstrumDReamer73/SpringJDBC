@@ -10,16 +10,18 @@ import org.springframework.stereotype.Service
     private val almacenRepository: repositorioAlmacenes,
     private val articuloRepository: repositorioArticulos
 ) {
-    fun findAll(): List<almacen> { return almacenRepository.findAll() }
+    fun findAll(): List<almacen> = almacenRepository.findAll()
 
-    fun findAllActive(): List<almacen> { return almacenRepository.findByEliminadoFalse() }
+    fun findAllActive(): List<almacen> = almacenRepository.findAllActive()
 
-    fun findAllArticles(UPC: Int): List<articulo> { return articuloRepository.findbyUPC(UPC) }
+    fun findAllArticles(UPC: Int): List<articulo> = articuloRepository.findbyUPC(UPC)
 
-    fun save(almacen: almacen): almacen { return almacenRepository.save(almacen) }
+    fun findbyID(id:Int):almacen = almacenRepository.findbyIDAlmacen(id)
+
+    fun save(almacen: almacen): almacen= almacenRepository.save(almacen)
 
     fun update(almacen: almacen): almacen {
-        if (almacen.IDAlmacen != null && almacenRepository.existsById(almacen.IDAlmacen)) { return almacenRepository.save(almacen) }
+        if (almacen.IDAlmacen != null && almacenRepository.existsById(almacen.IDAlmacen?:0)) { return almacenRepository.save(almacen) }
         else { throw IllegalArgumentException("Almacen no encontrado para actualizar") }
     }
 

@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import java.math.BigDecimal
 
 @Entity
-@Table(name = "detallesdeCompras")
+@Table(name = "detallesde_compras")
 data class detallesdeCompra(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var IDDetalledeCompra: Int? = 0,
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "factura") var factura: compra? = null, // Relación Many-to-One con `Compra`
@@ -13,5 +13,5 @@ data class detallesdeCompra(
     var IVA: BigDecimal? = BigDecimal.ZERO,
     var IEPS: BigDecimal? = BigDecimal.ZERO,
     var Subtotal: BigDecimal? = BigDecimal.ZERO,
-    var total: BigDecimal? = BigDecimal.ZERO,
+    var total: BigDecimal? = BigDecimal.ZERO
 )

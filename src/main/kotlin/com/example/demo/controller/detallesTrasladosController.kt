@@ -16,7 +16,7 @@ class detallesTrasladosController {
         return "detallesTraslado"
     }
 
-    @PostMapping fun save(@RequestBody detallesTraslado: detallesTraslado,model: Model):String{
+    @PostMapping fun save(@ModelAttribute detallesTraslado: detallesTraslado,model: Model):String{
         model.addAttribute("detallesTraslado",trasladosService.save(detallesTraslado))
         return "redirect:/detallesTraslado"
     }

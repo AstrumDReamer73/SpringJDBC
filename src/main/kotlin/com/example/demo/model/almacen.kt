@@ -13,6 +13,5 @@ import jakarta.persistence.*
     var capacidad: Int? = 0,
     var puertos: Int? = 0,
     var refrigeracion: Boolean? = false,
-    var eliminado: Boolean = false,
-    //@OneToMany(mappedBy = "almacen", cascade = [CascadeType.ALL], fetch = FetchType.LAZY) var ubicacionesRelacion: MutableList<ubicacion> = mutableListOf()
+    var eliminado: Boolean = false
 )

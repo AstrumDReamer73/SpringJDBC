@@ -8,14 +8,21 @@ import org.springframework.stereotype.Service
 
     fun findAll(): List<ubicacion> { return ubicacionRepository.findAll() }
 
-    fun findAllActive(): List<ubicacion> { return ubicacionRepository.findByEliminadoFalse() }
+    fun findAllActive(): List<ubicacion> { return ubicacionRepository.findAllActive() }
+
+    fun findById(id: Int):ubicacion=ubicacionRepository.findbyIDUbicacion(id)
 
     fun save(ubicacion: ubicacion): ubicacion { return ubicacionRepository.save(ubicacion) }
 
     fun update(ubicacion: ubicacion): ubicacion { return ubicacionRepository.save(ubicacion) }
 
-    fun deleteById(id: Int) {
-        val ubicacion = ubicacionRepository.findById(id).orElseThrow { Exception("Ubicación no encontrada") }
-        ubicacionRepository.delete(ubicacion)
+    fun deleteByID(Id: Int){
+        val ubicacion=ubicacionRepository.findById(Id)
+        if(ubicacion.isPresent){
+            val ubicaciontoDelete=ubicacion.get().copy(eliminado = true)
+            ubicacionRepository.save(ubicaciontoDelete)
+        }else{
+            throw  IllegalArgumentException("cliente no encontrado")
+        }
     }
 }

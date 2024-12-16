@@ -1,5 +1,6 @@
 package com.example.demo.repository
 
+import com.example.demo.model.articulo
 import com.example.demo.model.detallesTraslado
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository

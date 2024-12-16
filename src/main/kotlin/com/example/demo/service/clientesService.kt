@@ -1,9 +1,6 @@
 package com.example.demo.service
 
-import com.example.demo.model.cliente
-import com.example.demo.model.detallesdeVenta
-import com.example.demo.model.empleadosCliente
-import com.example.demo.model.venta
+import com.example.demo.model.*
 import com.example.demo.repository.*
 import org.springframework.stereotype.Service
 
@@ -15,14 +12,16 @@ class clientesService(
     private val detallesdeVentasRepository: repositorioDetallesdeVentas
 ) {
     //cliente
-    fun findAllCustomers(): List<cliente> = clienteRepository.findAll()
-
-    fun findAllActiveCustomers(): List<cliente> = clienteRepository.findByEliminadoFalse()
-
     fun saveCustomer(cliente: cliente): cliente = clienteRepository.save(cliente)
 
+    fun findbyRFC(RFC:String):cliente=clienteRepository.findbyRFC(RFC)
+
+    fun findAllCustomers(): List<cliente> = clienteRepository.findAll()
+
+    fun findAllActiveCustomers(): List<cliente> = clienteRepository.findAllActive()
+
     fun updateCustomer(cliente: cliente): cliente {
-        return if (clienteRepository.existsById(cliente.RFC)) { clienteRepository.save(cliente)
+        return if (clienteRepository.existsById(cliente.RFC?:"")) { clienteRepository.save(cliente)
         } else { throw IllegalArgumentException("Cliente no encontrado") }
     }
 
@@ -37,16 +36,18 @@ class clientesService(
     }
 
     //empleados
+    fun findEmpleadobyRFC(RFC: String):empleadosCliente=empleadosClienteRepository.findByRFC(RFC)
+
     fun findAllEmpleados():List<empleadosCliente> = empleadosClienteRepository.findAll()
 
-    fun findAllActiveEmpleados():List<empleadosCliente> =empleadosClienteRepository.findByEliminadoFalse()
+    fun findAllActiveEmpleados():List<empleadosCliente> =empleadosClienteRepository.findAllActive()
 
     fun findEmpleadosbyEmployer(rfc: String): List<empleadosCliente> = empleadosClienteRepository.findByRFCEmpleador(rfc)
 
     fun saveEmpleado(empleado: empleadosCliente):empleadosCliente=empleadosClienteRepository.save(empleado)
 
-    fun updateEmpleado(empleado: empleadosCliente):empleadosCliente{
-        return if(empleadosClienteRepository.existsById(empleado.RFC)){ empleadosClienteRepository.save(empleado) }
+    fun updateEmpleado(empleadosCliente: empleadosCliente):empleadosCliente{
+        return if(empleadosClienteRepository.existsById(empleadosCliente.RFC ?:"")){ empleadosClienteRepository.save(empleadosCliente) }
         else{ throw IllegalArgumentException("empleado no encontrado") }
     }
 
@@ -61,18 +62,26 @@ class clientesService(
     //ventas
     fun saveSell(venta: venta):venta=ventaRepository.save(venta)
 
-    fun findAllSells(): List<venta>  = ventaRepository.findAll()
+    fun findAll(): List<venta>  = ventaRepository.findAll()
+
+    fun findByfechayhoraAsc(): List<venta> = ventaRepository.findByfechayhoraAsc()
+
+    fun findByfechayhoraDesc(): List<venta> =ventaRepository.findByfechayhoraDesc()
 
     fun findAllActiveSells(): List<venta> = ventaRepository.findByEliminadoFalse()
 
-    fun findSellsByOrigen(almacenOrigen: String): List<venta> = ventaRepository.findByOrigen(almacenOrigen)
+    fun findByOrigen(almacenOrigen: String?): List<venta> = ventaRepository.findByOrigen(almacenOrigen)
 
-    fun findSellsByEmpleado(empleado: String): List<venta> = ventaRepository.findByEmployee(empleado)
+    fun findByEmpleado(empleado: String?): List<venta> = ventaRepository.findByEmployee(empleado)
 
-    fun findSellsByCliente(cliente: String): List<venta> = ventaRepository.findByCustomer(cliente)
+    fun findByCliente(cliente: String?): List<venta> = ventaRepository.findByCustomer(cliente)
+
+    fun findByEstado(estado: String?): List<venta> = ventaRepository.findByEstado(estado)
+
+    fun findByFactura(factura: String?):venta =ventaRepository.findByFactura(factura)
 
     fun updateSell(venta: venta):venta{
-        return if(ventaRepository.existsById(venta.factura)){ ventaRepository.save(venta) }
+        return if(ventaRepository.existsById(venta.factura?:"")){ ventaRepository.save(venta) }
         else { throw  IllegalArgumentException("venta no encontrada") }
     }
 

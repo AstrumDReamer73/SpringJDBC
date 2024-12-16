@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="htpp://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>listado de categoria</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -28,6 +28,16 @@
             <h1>lista de categorias</h1>
         </div>
     </div>
+    <div class="col-12 text-end">
+        <a class="btn btn-success" th:href="@{/listaCategorias/añadirCategoria}">Agregar categoria</a>
+    </div>
+    <form method="get" action="/listaCategorias" class="mb-3">
+        <div class="form-check">
+            <input type="checkbox" name="activos" class="form-check-input" id="activos" th:checked="${param.activos != null}">
+            <label class="form-check-label" for="activos">Ver solo categorías activas</label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+    </form>
     <br>
     <table class="table table-striped table-border">
         <thead class="table-dark">
@@ -40,14 +50,14 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <tr th:each="categoria:${categoria}">
-            <th th:text="${categoria.IDCategoria}">#</th>
-            <th th:text="${categoria.nombre}">nombre</th>
-            <th th:text="${categoria.IVA}">porcentaje de IVA</th>
-            <th th:text="${categoria.IEPS}">porcentaje de IEPS</th>
+        <tr th:each="categoria:${categorias}">
+            <th th:text="${categoria.IDCategoria}"></th>
+            <th th:text="${categoria.nombre}"></th>
+            <th th:text="${categoria.IVA}"></th>
+            <th th:text="${categoria.IEPS}"></th>
             <td>
-                <button>modificar</button>
-                <button>eliminar</button>
+                <a class="btn btn-primary btn-sm" th:href="@{/listaCategorias/editar/{IDCategoria}(IDCategoria=${categoria.IDCategoria})}">modificar</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/listaCategorias/eliminar/{IDCategoria}(IDCategoria=${categoria.IDCategoria})}" onclick="return confirm('estas seguro')" method="DELETE">eliminar</a>
             </td>
         </tr>
         </tbody>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>añadir cliente</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">App de inventario</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">inicio</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<h1>ingrese los datos del cliente</h1>
+<div class="container">
+  <div class="row">
+    <div class="">
+      <h1 class="text-center">registro de clientes</h1>
+      <div></div>
+      <form th:action="@{/listaClientes/guardar}" th:object="${cliente}" method="POST">
+        <div class="form-group">
+          <label>ingrese el RFC:</label>
+          <input type="text" name="RFC" th:field="*{RFC}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>nombre del cliente:</label>
+          <input type="text" name="nombre" th:field="*{nombre}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>direccion:</label>
+          <input type="text" name="direccion" th:field="*{direccion}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>territorio, municipio o alcaldia:</label>
+          <input type="text" name="territorio" th:field="*{territorio}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>estado:</label>
+          <input type="text" name="estado" th:field="*{estado}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>codigo Postal:</label>
+          <input type="text" name="codPostal" th:field="*{codPostal}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>telefono:</label>
+          <input type="text" name="telefono" th:field="*{telefono}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>correo electronico:</label>
+          <input type="email" name="correo" th:field="*{correo}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html xmlns:th="htpp://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>añadir ubicacion</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -27,10 +27,13 @@
         <div class="">
             <h1 class="text-center">registro de categoria</h1>
             <div class="card-body"></div>
-            <form th:action="@{/ubicacion}" th:object="${ubicacion}" method="POST">
+            <form th:action="@{/listaUbicaciones/guardar}" th:object="${ubicacion}" method="POST">
                 <div class="form-group">
                     <label>ingrese al almacen donde esta la ubicacion:</label>
-                    <input type="text" name="IDAlmacen" th:field="*{IDAlmacen}" class="form-control">
+                    <select th:field="*{IDAlmacen}" class="form-control" required>
+                        <option value="" disabled selected>Seleccione una categoría</option>
+                        <option th:each="almacen:${listaAlmacenes}" th:value="${almacen.IDAlmacen}" th:text="${almacen.nombre}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>ingrese el pasillo:</label>

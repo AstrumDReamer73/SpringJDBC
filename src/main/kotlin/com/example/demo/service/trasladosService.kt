@@ -15,6 +15,8 @@ class trasladosService (
 
     fun findAllActive():List<traslado> = repositorioTraslados.findByEliminadoFalse()
 
+    fun findByID(id:Int):traslado =repositorioTraslados.findbyID(id)
+
     fun findByOrigen(almacenOrigen:String):List<traslado> =repositorioTraslados.findByOrigen(almacenOrigen)
 
     fun findByDestino(almacenDestino:String):List<traslado> =repositorioTraslados.findByDestino(almacenDestino)
@@ -22,7 +24,7 @@ class trasladosService (
     fun save(traslado: traslado):traslado=repositorioTraslados.save(traslado)
 
     fun update(traslado: traslado):traslado {
-        return  if(repositorioTraslados.existsById(traslado.IDTraslado)){ repositorioTraslados.save(traslado)
+        return  if(repositorioTraslados.existsById(traslado.IDTraslado?:0)){ repositorioTraslados.save(traslado)
         }else{ throw IllegalArgumentException("traslado no encontrado") }
     }
 

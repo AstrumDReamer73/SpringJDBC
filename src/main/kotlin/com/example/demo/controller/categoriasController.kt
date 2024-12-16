@@ -9,28 +9,40 @@ import org.springframework.web.bind.annotation.*
 
 @Controller @RequestMapping("/listaCategorias") class categoriasController {
     @Autowired private lateinit var categoriaService: categoriaService
-    @GetMapping fun findAll(model: Model): String {
-        model.addAttribute("categorias",categoriaService.findAll())
+    @GetMapping
+    fun findAll(@RequestParam(required = false) activos: Boolean?, model: Model): String {
+        if (activos == true) { model.addAttribute("categorias", categoriaService.findAllActive()) }
+        else { model.addAttribute("categorias", categoriaService.findAll()) }
         return "listaCategorias"
     }
-
     @GetMapping("/activos") fun findAllActive(model: Model):String{
         model.addAttribute("categorias",categoriaService.findAllActive())
         return "redirect:/listaCategorias"
     }
 
-    @PostMapping fun save(@RequestBody categoria: categoria): String {
+    @GetMapping("/añadirCategoria")fun showAddForm(model: Model):String{
+        model.addAttribute("categoria",categoria())
+        return "añadirCategoria"
+    }
+
+    @PostMapping("/guardar")fun save(@ModelAttribute categoria: categoria):String{
         categoriaService.save(categoria)
-        return "redirect:/añadirCategoria"
+        return "redirect:/listaCategorias"
     }
 
-    @PutMapping("/{id}") fun update(@PathVariable id: Int, @RequestBody categoria: categoria): String {
-         categoria.copy(IDCategoria = id).let { categoriaService.update(it) }
-         return "redirect:/listaCategorias"
+    @GetMapping("/editar/{IDCategoria}")fun showEditForm(@PathVariable IDCategoria:Int,model: Model):String{
+        val categoria:categoria=categoriaService.findbyID(IDCategoria)
+        model.addAttribute("categoria",categoria)
+        return "editarCategoria"
     }
 
-    @DeleteMapping("/{id}") fun deleteById(@PathVariable id: Int):String {
-        categoriaService.deleteById(id)
+    @PostMapping("/actualizar/{IDCategoria}")fun update(categoria: categoria):String{
+        categoriaService.update(categoria)
+        return "redirect:/listaCategorias"
+    }
+
+    @GetMapping("eliminar/{IDCategoria}")fun delete(@PathVariable IDCategoria: Int):String{
+        categoriaService.deleteById(IDCategoria)
         return "redirect:/listaCategorias"
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.repository
 
+import com.example.demo.model.articulo
 import com.example.demo.model.compra
 import com.example.demo.model.detallesdeCompra
 import jakarta.transaction.Transactional
@@ -12,10 +13,11 @@ import org.springframework.stereotype.Repository
 @Repository
 public interface repositorioDetallesdeCompras : JpaRepository<detallesdeCompra, Int> {
     @Query("select d from detallesdeCompra d where d.factura=:factura")
-    fun findbyPurchase(@Param("factura")factura: String): List<detallesdeCompra>
+    fun findbyPurchase(@Param("factura")factura: compra): List<detallesdeCompra>
 
     @Transactional
     @Modifying
     @Query("DELETE FROM detallesdeCompra d WHERE d.IDDetalledeCompra =: id")
     fun deleteByID(@Param("id") id: Int): Int
+
 }

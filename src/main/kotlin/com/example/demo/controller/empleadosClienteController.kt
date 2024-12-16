@@ -1,12 +1,15 @@
 package com.example.demo.controller
 
+import com.example.demo.model.almacen
+import com.example.demo.model.cliente
 import com.example.demo.model.empleadosCliente
 import com.example.demo.service.clientesService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
-@RestController @RequestMapping("/listaEmpleadosCliente") class empleadosClienteController {
+@Controller @RequestMapping("/listaEmpleadosCliente") class empleadosClienteController {
     @Autowired private lateinit var clientesService: clientesService
 
     @GetMapping fun findAll(model: Model):String {
@@ -19,18 +22,32 @@ import org.springframework.web.bind.annotation.*
         return "listaEmpleadosCliente"
     }
 
-    @PostMapping fun save(@RequestBody empleadosCliente: empleadosCliente,model: Model):String {
+    @GetMapping("/añadirEmpleadoCliente")
+    fun showAddForm(model: Model): String {
+        model.addAttribute("empleadoCliente", empleadosCliente())
+        model.addAttribute("listaClientes",clientesService.findAllActiveCustomers())
+        return "añadirEmpleadoCliente"
+    }
+
+    @PostMapping("/guardar") fun save(@ModelAttribute empleadosCliente: empleadosCliente,model: Model):String {
         model.addAttribute("empleadosCliente",clientesService.saveEmpleado(empleadosCliente))
         return "listaEmpleadosCliente"
     }
 
-    @PutMapping("/{rfc}") fun update(@PathVariable rfc:String,@RequestBody empleadosCliente: empleadosCliente):String {
-        empleadosCliente.copy(RFC = rfc).let { clientesService.updateEmpleado(it) }
+    @GetMapping("/editar/{RFC}")fun showEditForm(@PathVariable RFC:String,model: Model):String{
+        val empleadosCliente =clientesService.findEmpleadobyRFC(RFC)
+        model.addAttribute("empleadosCliente", empleadosCliente)
+        model.addAttribute("listaClientes",clientesService.findAllActiveCustomers())
+        return "editarEmpleadoCliente"
+    }
+
+    @PostMapping("/actualizar/{RFC}")fun update(cliente: cliente):String{
+        clientesService.updateCustomer(cliente)
         return "redirect:/listaEmpleadosCliente"
     }
 
-    @DeleteMapping("/{rfc}") fun delete(@PathVariable rfc: String):String {
-        clientesService.deleteEmpleadobyRFC(rfc)
+    @GetMapping("eliminar/{RFC}")fun delete(@PathVariable RFC: String):String{
+        clientesService.deleteCustomerbyRFC(RFC)
         return "redirect:/listaEmpleadosCliente"
     }
 }

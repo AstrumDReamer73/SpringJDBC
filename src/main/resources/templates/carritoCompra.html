@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Gestión de compras e inventario">
+    <meta name="author" content="">
+    <title>App de Inventario - Carrito de Compras</title>
+    <!-- Bootstrap core CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">App de Inventario</a>
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Inicio</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Título y Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Spring eCommerce <small>Carrito</small></h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active">Carrito</li>
+    </ol>
+
+    <!-- Tabla de productos en el carrito -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <!-- Tabla de productos -->
+                <div class="col-lg-9">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">categoria</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="detalleCompra : ${detallesCompras}">
+                            <td th:text="${detalleCompra.articulo.nombre}"></td>
+                            <td th:text="${detalleCompra.articulo.costoCompra}"></td>
+                            <td th:text="${detalleCompra.articulo.categoria.nombre}"></td>
+                            <td th:text="${detalleCompra.cantidad}"></td>
+                            <td th:text="${detalleCompra.Subtotal}"></td>
+                            <td>
+                                <a th:href="@{/delete/cart/{factura}(factura=${detalleCompra.factura.factura})}"class="btn btn-danger">Quitar</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-lg-3">
+                    <h2 class="card-title">Subtotal</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h5 th:text="${compra.total}"></h5>
+                        </li>
+                        <a href="/order" class="btn btn-dark mt-3">Ver Orden</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para añadir un artículo al carrito -->
+    <div class="text-center">
+        <a href="/listaCompras/agregarAlCarrito/{factura}" class="btn btn-primary">Añadir artículo</a>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoYz5TU6zUzIOihxWsh1Ao5Y3slsVB4+AM1JZyNgBsowRl"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

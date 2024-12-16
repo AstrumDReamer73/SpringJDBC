@@ -26,22 +26,22 @@
 <div class="container">
     <div class="row">
         <h1 class="text-center">registro de ventas</h1>
-        <form th:action="@{/listaCompras/guardar}" th:object="${compra}" method="POST">
+        <form th:action="@{/listaVentas/guardar}" th:object="${venta}" method="POST">
             <div class="form-group">
                 <label>ingrese la factura:</label>
                 <input type="text" name="factura" th:field="*{factura}" class="form-control">
             </div>
             <div class="form-group">
                 <label>ingrese el RFC del empleado que recibe el envio:</label>
-                <select th:field="*{proveedor}" class="form-control" required>
-                    <option value="" disabled selected>Seleccione una categoría</option>
-                    <option th:each="proveedor:${listaProveedores}" th:value="${proveedor.RFC}" th:text="${proveedor.nombre}"></option>
+                <select th:field="*{cliente}" class="form-control" required>
+                    <option value="" disabled selected>Seleccione el cliente</option>
+                    <option th:each="cliente:${listaCliente}" th:value="${cliente.RFC}" th:text="${cliente.nombre}"></option>
                 </select>
             </div>
             <div class="form-group">
                 <label>ingrese el almacen de destino:</label>
-                <select th:field="*{almacenDestino}" class="form-control" required>
-                    <option value="" disabled selected>Seleccione una categoría</option>
+                <select th:field="*{almacenOrigen}" class="form-control" required>
+                    <option value="" disabled selected>Seleccione el almacen de origen</option>
                     <option th:each="almacen:${listaAlmacenes}" th:value="${almacen.IDAlmacen}" th:text="${almacen.nombre}"></option>
                 </select>
             </div>
@@ -49,8 +49,12 @@
                 <label>ingrese el RFC del empleado que recibe el envio:</label>
                 <select th:field="*{empleado}" class="form-control" required>
                     <option value="" disabled selected>Seleccione una categoría</option>
-                    <option th:each="empleado:${listaEmpleadosProveedores}" th:value="${empleado.RFC}" th:text="${empleado.nombre}"></option>
+                    <option th:each="empleado:${listaEmpleadosCliente}" th:value="${empleado.RFC}" th:text="${empleado.nombre}"></option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label>ingrese el destino:</label>
+                <input type="text" name="destino" th:field="*{destino}" class="form-control">
             </div>
             <div class="form-group">
                 <label>ingrese el tipo de compra:</label>
@@ -95,4 +99,3 @@
 </div>
 </body>
 </html>
-

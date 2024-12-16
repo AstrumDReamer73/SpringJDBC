@@ -1,19 +1,19 @@
 package com.example.demo.model
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "compras")
 data class compra(
-    @Id var factura: String = "",
-    @ManyToOne @JoinColumn(name = "RFCProveedor") var proveedor: proveedor? = null, // Relación Many-to-One con `Cliente`
-    var motivo: String? = "",
+    @Id var factura: String? = "",
+    @ManyToOne @JoinColumn(name = "RFCProveedor") var proveedor: proveedor? = null,
+    @ManyToOne @JoinColumn(name="RFCEmpleado")var empleado: empleadosProveedor? = null,
     @OneToOne @JoinColumn(name="almacenDestino")var almacenDestino: almacen? = null,
-    var destino: String? = "",
-    var empleado: String? = "",
-    var fechayhora: LocalDateTime? = null,
-    var tipo: String = "",
-    var estado: String = "",
-    //@OneToMany (mappedBy = "factura", cascade = [CascadeType.ALL], orphanRemoval = true) var detalles: MutableList<detallesdeCompra> = mutableListOf(),
+    var motivo: String? = "",
+    var tipo: String? = "",
+    var estado: String? = "",
+    var total:BigDecimal?=BigDecimal.ZERO,
+    var fechayhora: LocalDateTime? = LocalDateTime.now(),
 )

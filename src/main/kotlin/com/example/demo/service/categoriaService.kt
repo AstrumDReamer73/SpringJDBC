@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service
 @Service class categoriaService(private val categoriaRepository: repositorioCategorias) {
     fun findAll(): List<categoria> = categoriaRepository.findAll()
 
-    fun findAllActive(): List<categoria> = categoriaRepository.findByEliminadoFalse()
+    fun findAllActive(): List<categoria> = categoriaRepository.findAllActive()
+
+    fun findbyID(id: Int):categoria=categoriaRepository.findbyID(id)
 
     fun save(categoria: categoria): categoria = categoriaRepository.save(categoria)
 
     fun update(categoria: categoria): categoria {
-        if (categoriaRepository.existsById(categoria.IDCategoria)) { return categoriaRepository.save(categoria) }
+        if (categoriaRepository.existsById(categoria.IDCategoria?:0)) { return categoriaRepository.save(categoria) }
         else { throw IllegalArgumentException("Categoria no encontrada para actualizar") }
     }
 

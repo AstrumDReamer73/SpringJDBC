@@ -1,5 +1,7 @@
 package com.example.demo.controller
 
+import com.example.demo.model.almacen
+import com.example.demo.model.categoria
 import com.example.demo.model.cliente
 import com.example.demo.service.clientesService
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,28 +22,41 @@ import org.springframework.web.bind.annotation.*
         return "redirect:/listaClientes"
     }
 
-    @GetMapping("/{rfc}/empleados") fun findAllEmpleados(@PathVariable rfc: String,model: Model):String {
-        model.addAttribute("clientes",clientesService.findEmpleadosbyEmployer(rfc))
-        return "listaEmpleadosProveedores"
+    @GetMapping("/empleados/{RFC}") fun findAllEmpleados(@PathVariable RFC: String,model: Model):String {
+        model.addAttribute("empleadosCliente",clientesService.findEmpleadosbyEmployer(RFC))
+        return "listaEmpleadosCliente"
     }
 
-    @GetMapping("/{rfc}/ventas") fun findAllSells(@PathVariable rfc: String,model: Model):String{
-        model.addAttribute("clientes",clientesService.findSellsByCliente(rfc))
+    @GetMapping("/ventas/{RFC}") fun findAllSells(@PathVariable RFC: String,model: Model):String{
+        val ventas = clientesService.findByCliente(RFC) // Revisión aquí
+        model.addAttribute("ventas", ventas)
         return "listaVentas"
     }
 
-    @PostMapping("/añadirCliente") fun save(@RequestBody cliente: cliente): String {
+    @GetMapping("/añadirCliente")
+    fun showAddForm(model: Model): String {
+        model.addAttribute("cliente", cliente())
+        return "añadirCliente"
+    }
+
+    @PostMapping("/guardar") fun save(@ModelAttribute cliente: cliente): String {
         clientesService.saveCustomer(cliente)
-        return "redirect:/añadirCliente"
-    }
-
-    @PutMapping("/{rfc}") fun update(@PathVariable rfc: String, @RequestBody cliente: cliente): String {
-        cliente.copy(RFC=rfc).let{clientesService.updateCustomer(it)}
         return "redirect:/listaClientes"
     }
 
-    @DeleteMapping("/{rfc}") fun delete(@PathVariable rfc: String):String {
-        clientesService.deleteCustomerbyRFC(rfc)
-        return "redirect:/listaClientes"
+    @GetMapping("/editar/{RFC}")fun showEditForm(@PathVariable RFC:String,model: Model):String{
+        val cliente =clientesService.findbyRFC(RFC)
+        model.addAttribute("cliente",cliente)
+        return "editarCliente"
+    }
+
+    @PostMapping("/actualizar/{RFC}")fun update(cliente: cliente):String{
+        clientesService.updateCustomer(cliente)
+        return "redirect:/listaCategorias"
+    }
+
+    @GetMapping("eliminar/{RFC}")fun delete(@PathVariable RFC: String):String{
+        clientesService.deleteCustomerbyRFC(RFC)
+        return "redirect:/listaCategorias"
     }
 }
