@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param
 @Repository
 interface repositorioArticulos : JpaRepository<articulo, Int> {
     @Query("SELECT a FROM articulo a WHERE a.upc = :upc")
-    fun findbyUPC(@Param("upc") upc: Int): List<articulo>
+    fun findbyUPC(@Param("upc") upc: Int): articulo
 
     @Query("select a from articulo a where a.categoria=:categoria")
     fun findByCategoria(@Param("categoria")categoria: Int):List<articulo>

@@ -61,10 +61,14 @@ import java.math.BigDecimal
     // Agregar artículo al carrito
     @GetMapping("/agregarAlCarrito/{factura}")
     fun showAddArticuloForm(@PathVariable factura: String, model: Model): String {
-        val detallesCompra = detallesdeCompra()
-        model.addAttribute("detallesdeCompra", detallesCompra)
+        val articulos = articulosService.findAll() // Recuperar artículos desde la base de datos.
+
+        if (articulos.isEmpty()) {
+            throw RuntimeException("No hay artículos disponibles para agregar.")
+        }
+
         model.addAttribute("factura", factura)
-        model.addAttribute("articulos", articulosService.findAllActive())
+        model.addAttribute("articulos", articulos) // Asegúrate de que este atributo se añade al modelo.
         return "agregarArticuloCarritoCompra"
     }
 
@@ -77,24 +81,15 @@ import java.math.BigDecimal
         model: Model
     ): String {
         val detalleCompra = detallesdeCompra()
-        val articulo = articulo()
+        val articulo = articulosService.findbyUPC(upc)
         var sumaTotal = BigDecimal.ZERO
-        val optionalProducto = articulosService.findbyUPC(upc)
-
-        if (optionalProducto.isNotEmpty()) {
-            val producto = optionalProducto[0]
-            detalleCompra.cantidad = cantidad
-            detalleCompra.Subtotal = producto.costoCompra?.multiply(BigDecimal(cantidad))
-            detalleCompra.articulo = producto
-
-            val detalles = proveedoresService.findDetallesDeCompraByFactura(factura)
-            sumaTotal = detalles.sumOf { it.total?.toDouble() ?: 0.0 }.toBigDecimal()
-            detalleCompra.factura?.total = sumaTotal
-        }
-
+        detalleCompra.cantidad=cantidad
+        detalleCompra.Subtotal=articulo.costoCompra?.multiply(BigDecimal(cantidad))
+        detalleCompra.articulo=articulo
+        val detalles=proveedoresService.findDetallesDeCompraByFactura(factura)
+        detalleCompra.factura?.total=sumaTotal
         proveedoresService.saveDetallesDeCompra(detalleCompra)
         model.addAttribute("detalleCompra", detalleCompra)
-        //model.addAttribute("articulo")
         return "redirect:/carritoCompra/{factura}"
     }
 

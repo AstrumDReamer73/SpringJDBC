@@ -65,7 +65,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="detalleCompra : ${detallesCompras}">
-                            <td th:text="${detalleCompra.articulo.nombre}"></td>
+                            <td th:text="${detalleCompra.articulo.descripcion}"></td>
                             <td th:text="${detalleCompra.articulo.costoCompra}"></td>
                             <td th:text="${detalleCompra.articulo.categoria.nombre}"></td>
                             <td th:text="${detalleCompra.cantidad}"></td>

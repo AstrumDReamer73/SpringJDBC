@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 @Service class articulosService (private val articulosRepository: repositorioArticulos){
     fun findAll(): List<articulo> = articulosRepository.findAll()
 
-    fun findAllExistences(UPC: Int): List<articulo> = articulosRepository.findbyUPC(UPC)
+    fun findAllExistences(UPC: Int): articulo = articulosRepository.findbyUPC(UPC)
 
     fun findAllActive(): List<articulo> = articulosRepository.findAllActive()
 
@@ -23,5 +23,5 @@ import org.springframework.stereotype.Service
         articulosRepository.save(updatedArticulo)
     }
 
-    fun findbyUPC(upc: Int):List<articulo> = articulosRepository.findbyUPC(upc)
+    fun findbyUPC(upc: Int):articulo= articulosRepository.findbyUPC(upc)
 }

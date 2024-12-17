@@ -2,9 +2,7 @@ package com.example.demo.model
 
 import jakarta.persistence.*
 
-@Entity
-@Table(name = "ubicaciones")
-data class ubicacion(
+@Entity @Table(name = "ubicaciones") data class ubicacion(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var IDUbicacion: Int? = 0,
     @ManyToOne @JoinColumn(name = "IDAlmacen", nullable = false) var IDAlmacen: almacen?=null,
     var pasillo: Int? = 0,

@@ -166,3 +166,10 @@ subtotal decimal(10,2),
 total decimal(10,2),
 estado varchar(20)
 )
+
+create table referenciascruzadas(
+IDRF int identity primary key,
+IDUbicacion int foreign key references ubicaciones(IDUbicacion),
+upc int foreign key references articulos(upc),
+cantidad int
+)

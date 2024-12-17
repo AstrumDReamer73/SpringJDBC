@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 
     fun findAllActive(): List<almacen> = almacenRepository.findAllActive()
 
-    fun findAllArticles(UPC: Int): List<articulo> = articuloRepository.findbyUPC(UPC)
+    fun findByUPC(UPC: Int): articulo = articuloRepository.findbyUPC(UPC)
 
     fun findbyID(id:Int):almacen = almacenRepository.findbyIDAlmacen(id)
 
