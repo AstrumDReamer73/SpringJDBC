@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+base de datos manzanares
+>>>>>>> e16b5948e3300393207c6538160d9999a61b4007
 
 create table almacenes(
 IDAlmacen int identity primary key,
@@ -39,9 +43,17 @@ FechadeAlta date,
 eliminado bit
 )
 
+<<<<<<< HEAD
 create table empleadosClientes(
 RFC varchar(13) primary key,
 RFCEmpleador varchar(13) foreign key references clientes(rfc),
+=======
+//single FK
+
+create table empleadoProveedor(
+RFC varchar(13) primary key,
+RFCProveedor varchar(13) foreign key references proveedores(RFC)
+>>>>>>> e16b5948e3300393207c6538160d9999a61b4007
 nombre varchar(50) not null,
 direccion varchar(100) not null,
 territorio varchar(50),
@@ -83,9 +95,15 @@ nivel int,
 estante int
 )
 create table articulos(
+<<<<<<< HEAD
 UPC int primary key,
 posicion int foreign key references ubicacion(IDUbicacion),
 categoria int foreign key references categoria(IDCategoria),
+=======
+UPC varchar(12) primary key,
+idposicion int foreign key references ubicacion(IDUbicacion),
+idcategoria inf foreign key references categorias(IDCategorias),
+>>>>>>> e16b5948e3300393207c6538160d9999a61b4007
 descripcion varchar(100) not null,
 cantidad int not null,
 costoCompra decimal(10,2),
@@ -103,9 +121,13 @@ proveedores varchar(13) foreign key references proveedores(rfc),
 motivo varchar(50),
 FechayHora dateTime,
 tipo varchar(50),
+<<<<<<< HEAD
 destino varchar(50),
 origen varchar(50),
 empleado varchar(13) foreign key references empleadosProveedores(RFC),
+=======
+empleado varchar(13) foreign key references empleadosProveedor(RFCProveedor),
+>>>>>>> e16b5948e3300393207c6538160d9999a61b4007
 estado varchar(50)
 )
 
@@ -123,14 +145,18 @@ total decimal(10,2)
 
 create table ventas(
 factura varchar(20) primary key,
+<<<<<<< HEAD
 almacenOrigen int foreign key references almacenes(IDalmacen),
 clientes varchar(13) foreign key references proveedores(rfc),
+=======
+almacenOrigen int foreign key references almacenes(IDAlmacen), 
+cliente varchar(13) foreign key references clientes(RFC)
+>>>>>>> e16b5948e3300393207c6538160d9999a61b4007
 motivo varchar(50),
 FechayHora dateTime,
 tipo varchar(50),
 destino varchar(100),
-origen varchar(100),
-empleado varchar(13),
+empleado varchar(13) foreign key references empleadosProveedor(RFCProveedor),
 estado varchar(30)
 )
 
@@ -147,6 +173,7 @@ total decimal(10,2)
 )
 
 create table traslados(
+<<<<<<< HEAD
 idtraslado int identity primary key,
 almacenOrigen int foreign key references almacenes(idAlmacen),
 almacenDestino int foreign key references almacenes(idAlmacen),
@@ -156,12 +183,26 @@ estado varchar(20)
 
 create table detallesTraslados(
 iddetallestraslado int identity primary key,
+=======
+idtraslado int identity primary key
+almacenOrigen int foreign key references almacenes(IDAlmacen), 
+almacenDestino int foreign key references almacenes(IDAlmacen), 
+motivo varchar(50),
+tipo varchar(50),
+fechayhora datetime,
+estado varchar(30)
+)
+
+create table detallesTraslados(
+IDDetalledeTraslado int identity primary key,
+>>>>>>> e16b5948e3300393207c6538160d9999a61b4007
 idtraslado int foreign key references traslados(idtraslado),
 UPC int foreign key references articulos(UPC),
 categoria int,
 cantidad int,
 iva decimal(10,2),
 ieps decimal(10,2),
+<<<<<<< HEAD
 subtotal decimal(10,2),
 total decimal(10,2),
 estado varchar(20)
@@ -173,3 +214,8 @@ IDUbicacion int foreign key references ubicaciones(IDUbicacion),
 upc int foreign key references articulos(upc),
 cantidad int
 )
+=======
+subtotal decimal(10,2), 
+total decimal(10,2)
+)
+>>>>>>> e16b5948e3300393207c6538160d9999a61b4007
