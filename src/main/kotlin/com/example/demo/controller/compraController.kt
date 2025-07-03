@@ -20,8 +20,7 @@ import java.math.BigDecimal
         return "listaCompras"
     }
 
-    @GetMapping("/añadirCompra")
-    fun showAddForm(model: Model): String {
+    @GetMapping("/añadirCompra") fun showAddForm(model: Model): String {
         model.addAttribute("compra", compra())
         model.addAttribute("listaProveedores",proveedoresService.findAllSuppliers())
         model.addAttribute("listaAlmacenes",almacenService.findAll())
@@ -30,9 +29,9 @@ import java.math.BigDecimal
     }
 
     @PostMapping("/guardar") fun save(@ModelAttribute compra: compra,
-                                      @RequestParam proveedor:String,
-                                      @RequestParam empleado: String,
-                                      @RequestParam almacenDestino: Int): String {
+                                                    @RequestParam proveedor:String,
+                                                    @RequestParam empleado: String,
+                                                    @RequestParam almacenDestino: Int): String {
         val proveedor=proveedoresService.findSupplierbyRFC(proveedor)
         val empleado=proveedoresService.findEmpleadobyRFC(empleado)
         val almacenDestino=almacenService.findbyID(almacenDestino)
@@ -50,9 +49,7 @@ import java.math.BigDecimal
 
     @GetMapping("/carritoCompra/{factura}") fun verCarrito(@PathVariable factura: String,model: Model):String {
         val compra=proveedoresService.findByFactura(factura)
-        if(compra==null){
-            throw RuntimeException("compra no encontrada para la factura:$factura")
-        }
+        if(compra==null){ throw RuntimeException("compra no encontrada para la factura:$factura") }
         model.addAttribute("compra",compra)
         model.addAttribute("detallesCompras",proveedoresService.findDetallesDeCompraByFactura(factura))
         return "carritoCompra"
@@ -62,11 +59,7 @@ import java.math.BigDecimal
     @GetMapping("/agregarAlCarrito/{factura}")
     fun showAddArticuloForm(@PathVariable factura: String, model: Model): String {
         val articulos = articulosService.findAll() // Recuperar artículos desde la base de datos.
-
-        if (articulos.isEmpty()) {
-            throw RuntimeException("No hay artículos disponibles para agregar.")
-        }
-
+        if (articulos.isEmpty()) { throw RuntimeException("No hay artículos disponibles para agregar.") }
         model.addAttribute("factura", factura)
         model.addAttribute("articulos", articulos) // Asegúrate de que este atributo se añade al modelo.
         return "agregarArticuloCarritoCompra"
@@ -74,13 +67,11 @@ import java.math.BigDecimal
 
     // Agregar el artículo seleccionado al carrito
     @PostMapping("/agregarArticuloalCarrito/{factura}/{upc}")
-    fun añadirCarrito(
-        @PathVariable factura: String,
-        @PathVariable upc: Int,
-        @RequestParam cantidad: Int,
-        model: Model
-    ): String {
-        val detalleCompra = detallesdeCompra()
+    fun añadirCarrito(@PathVariable factura: String,
+                            @PathVariable upc: Int,
+                            @RequestParam cantidad: Int,
+                            model: Model): String {
+        val detalleCompra = detallesCompra()
         val articulo = articulosService.findbyUPC(upc)
         var sumaTotal = BigDecimal.ZERO
         detalleCompra.cantidad=cantidad

@@ -37,16 +37,13 @@ import org.springframework.web.bind.annotation.*
     @GetMapping("/añadirArticulo")fun showAddForm(model: Model):String{
         model.addAttribute("articulo",articulo())
         model.addAttribute("listaCategorias", categoriaService.findAllActive())
-        model.addAttribute("listaUbicacion", ubicacionService.findAllActive())
+        model.addAttribute("listaUbicacion", ubicacionService.findAll())
         return "añadirArticulo"
     }
 
-    @PostMapping("/guardar")
-    fun save(
-        @ModelAttribute articulo: articulo,
-        @RequestParam ubicacion: Int,
-        @RequestParam categoria: Int
-    ): String {
+    @PostMapping("/guardar") fun save(@ModelAttribute articulo: articulo,
+                                                    @RequestParam ubicacion: Int,
+                                                    @RequestParam categoria: Int): String {
         val ubicacion = ubicacionService.findById(ubicacion)
         val categoria = categoriaService.findbyID(categoria)
         articulo.ubicacion = ubicacion
@@ -61,14 +58,14 @@ import org.springframework.web.bind.annotation.*
         if(articulo!=null) {
             model.addAttribute("articulo", articulo())
             model.addAttribute("listaCategorias", categoriaService.findAllActive())
-            model.addAttribute("listaUbicacion", ubicacionService.findAllActive())
+            model.addAttribute("listaUbicacion", ubicacionService.findAll())
         }
         return "añadirArticulo"
     }
 
     @PostMapping("/actualizar/{upc}")fun update(@ModelAttribute articulo: articulo,
-                                             @RequestParam ubicacion: Int,
-                                             @RequestParam categoria: Int):String{
+                                                              @RequestParam ubicacion: Int,
+                                                              @RequestParam categoria: Int):String{
         val ubicacion = ubicacionService.findById(ubicacion)
         val categoria = categoriaService.findbyID(categoria)
         articulo.ubicacion = ubicacion
@@ -76,7 +73,6 @@ import org.springframework.web.bind.annotation.*
         articulosService.update(articulo)
         return "redirect:/listaArticulos"
     }
-
 
     @GetMapping("/eliminar/{upc}") fun delete(@PathVariable upc: Int):String {
         articulosService.deleteByUPC(upc)

@@ -7,7 +7,7 @@ import java.math.BigDecimal
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var IDDetallesTraslado:Int?=0,
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "IDTraslado") var IDTraslado: traslado?,
     @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name="UPC")var articulo: articulo? = null,
-    var categoría:Int?,
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "categoria") var categoria: categoria? = null,
     var cantidad:Int?,
     var IVA: BigDecimal? = BigDecimal.ZERO,
     var IEPS:BigDecimal? = BigDecimal.ZERO,

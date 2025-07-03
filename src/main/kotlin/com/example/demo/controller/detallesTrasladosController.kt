@@ -7,8 +7,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
-@Controller @RequestMapping("/detallesTraslados")
-class detallesTrasladosController {
+@Controller @RequestMapping("/detallesTraslados") class detallesTrasladosController {
     @Autowired private lateinit var trasladosService: trasladosService
 
     @GetMapping("/{IDTraslado}") fun findByTraslado(@PathVariable IDTraslado:Int,model: Model):String {

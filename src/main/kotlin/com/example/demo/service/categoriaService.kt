@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
     fun findAllActive(): List<categoria> = categoriaRepository.findAllActive()
 
-    fun findbyID(id: Int):categoria=categoriaRepository.findbyID(id)
+    fun findbyID(id: Int):categoria = categoriaRepository.findbyID(id)
 
     fun save(categoria: categoria): categoria = categoriaRepository.save(categoria)
 

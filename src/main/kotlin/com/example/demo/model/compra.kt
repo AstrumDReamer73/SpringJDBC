@@ -4,9 +4,7 @@ import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-@Entity
-@Table(name = "compras")
-data class compra(
+@Entity @Table(name = "Compras") data class compra(
     @Id var factura: String? = "",
     @ManyToOne @JoinColumn(name = "RFCProveedor") var proveedor: proveedor? = null,
     @ManyToOne @JoinColumn(name="RFCEmpleado")var empleado: empleadosProveedor? = null,
@@ -14,6 +12,7 @@ data class compra(
     var motivo: String? = "",
     var tipo: String? = "",
     var estado: String? = "",
+    var subtotal: BigDecimal?= BigDecimal.ZERO,
     var total:BigDecimal?=BigDecimal.ZERO,
     var fechayhora: LocalDateTime? = LocalDateTime.now(),
 )

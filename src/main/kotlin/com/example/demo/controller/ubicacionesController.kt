@@ -1,7 +1,5 @@
 package com.example.demo.controller
 
-import com.example.demo.model.almacen
-import com.example.demo.model.categoria
 import com.example.demo.model.ubicacion
 import com.example.demo.service.almacenService
 import com.example.demo.service.ubicacionService
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.*
     }
 
     @GetMapping("/activas") fun findAllActive(model: Model):String{
-        model.addAttribute("ubicaciones",ubicacionService.findAllActive())
+        model.addAttribute("ubicaciones",ubicacionService.findAll())
         return "listaUbicaciones"
     }
 

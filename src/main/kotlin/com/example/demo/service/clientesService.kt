@@ -4,13 +4,10 @@ import com.example.demo.model.*
 import com.example.demo.repository.*
 import org.springframework.stereotype.Service
 
-@Service
-class clientesService(
-    private val clienteRepository: repositorioClientes,
-    private val empleadosClienteRepository: repositorioEmpleadosCliente,
-    private val ventaRepository: repositorioVentas,
-    private val detallesdeVentasRepository: repositorioDetallesdeVentas
-) {
+@Service class clientesService(private val clienteRepository: repositorioClientes,
+                                     private val empleadosClienteRepository: repositorioEmpleadosCliente,
+                                     private val ventaRepository: repositorioVentas,
+                                     private val detallesdeVentasRepository: repositorioDetallesdeVentas) {
     //cliente
     fun saveCustomer(cliente: cliente): cliente = clienteRepository.save(cliente)
 
@@ -21,8 +18,8 @@ class clientesService(
     fun findAllActiveCustomers(): List<cliente> = clienteRepository.findAllActive()
 
     fun updateCustomer(cliente: cliente): cliente {
-        return if (clienteRepository.existsById(cliente.RFC?:"")) { clienteRepository.save(cliente)
-        } else { throw IllegalArgumentException("Cliente no encontrado") }
+        return if (clienteRepository.existsById(cliente.RFC?:"")) { clienteRepository.save(cliente) }
+        else { throw IllegalArgumentException("Cliente no encontrado") }
     }
 
     fun deleteCustomerbyRFC(RFC: String){
@@ -36,7 +33,7 @@ class clientesService(
     }
 
     //empleados
-    fun findEmpleadobyRFC(RFC: String):empleadosCliente=empleadosClienteRepository.findByRFC(RFC)
+    fun findEmpleadobyRFC(RFC: String):empleadosCliente = empleadosClienteRepository.findByRFC(RFC)
 
     fun findAllEmpleados():List<empleadosCliente> = empleadosClienteRepository.findAll()
 
@@ -60,13 +57,13 @@ class clientesService(
     }
 
     //ventas
-    fun saveSell(venta: venta):venta=ventaRepository.save(venta)
+    fun saveSell(venta: venta):venta = ventaRepository.save(venta)
 
     fun findAll(): List<venta>  = ventaRepository.findAll()
 
     fun findByfechayhoraAsc(): List<venta> = ventaRepository.findByfechayhoraAsc()
 
-    fun findByfechayhoraDesc(): List<venta> =ventaRepository.findByfechayhoraDesc()
+    fun findByfechayhoraDesc(): List<venta> = ventaRepository.findByfechayhoraDesc()
 
     fun findAllActiveSells(): List<venta> = ventaRepository.findByEliminadoFalse()
 
@@ -96,11 +93,11 @@ class clientesService(
     }
 
     //detalles de venta
-    fun findDetallesDeVentaByFactura(factura: String): List<detallesdeVenta> = detallesdeVentasRepository.findbyPurchase(factura)
+    fun findDetallesDeVentaByFactura(factura: String): List<detallesVenta> = detallesdeVentasRepository.findbyPurchase(factura)
 
-    fun saveDetallesDeVenta(detallesDeVenta: detallesdeVenta): detallesdeVenta = detallesdeVentasRepository.save(detallesDeVenta)
+    fun saveDetallesDeVenta(detallesDeVenta: detallesVenta): detallesVenta = detallesdeVentasRepository.save(detallesDeVenta)
 
-    fun updateDetallesDeVenta(detallesDeVenta: detallesdeVenta): detallesdeVenta {
+    fun updateDetallesDeVenta(detallesDeVenta: detallesVenta): detallesVenta {
         return if (detallesDeVenta.IDDetalledeVenta != null && detallesdeVentasRepository.existsById(detallesDeVenta.IDDetalledeVenta!!)) { detallesdeVentasRepository.save(detallesDeVenta) }
         else { throw IllegalArgumentException("Detalle de venta no encontrado") }
     }

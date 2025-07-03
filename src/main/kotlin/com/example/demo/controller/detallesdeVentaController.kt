@@ -1,6 +1,6 @@
 package com.example.demo.controller
 
-import com.example.demo.model.detallesdeVenta
+import com.example.demo.model.detallesVenta
 import com.example.demo.service.clientesService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*
         return "detallesdeVentas"
     }
 
-    @PostMapping fun save(@ModelAttribute detallesdeVenta: detallesdeVenta,model: Model): String {
-        model.addAttribute("detallesdeVentas",clienteService.saveDetallesDeVenta(detallesdeVenta))
+    @PostMapping fun save(@ModelAttribute detallesVenta: detallesVenta, model: Model): String {
+        model.addAttribute("detallesdeVentas",clienteService.saveDetallesDeVenta(detallesVenta))
         return "redirect:/detallesdeVentas"
     }
 
-    @PutMapping("/{id}") fun update(@PathVariable id: Int, @RequestBody detallesdeVenta: detallesdeVenta): String {
-        detallesdeVenta.copy(IDDetalledeVenta = id).let { clienteService.updateDetallesDeVenta(it) }
+    @PutMapping("/{id}") fun update(@PathVariable id: Int, @RequestBody detallesVenta: detallesVenta): String {
+        detallesVenta.copy(IDDetalledeVenta = id).let { clienteService.updateDetallesDeVenta(it) }
         return "redirect:/detallesdeVentas"
     }
 

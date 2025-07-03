@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*
 
 @Controller @RequestMapping("/listaCategorias") class categoriasController {
     @Autowired private lateinit var categoriaService: categoriaService
-    @GetMapping
-    fun findAll(@RequestParam(required = false) activos: Boolean?, model: Model): String {
+
+    @GetMapping fun findAll(@RequestParam(required = false) activos: Boolean?, model: Model): String {
         if (activos == true) { model.addAttribute("categorias", categoriaService.findAllActive()) }
         else { model.addAttribute("categorias", categoriaService.findAll()) }
         return "listaCategorias"
     }
+
     @GetMapping("/activos") fun findAllActive(model: Model):String{
         model.addAttribute("categorias",categoriaService.findAllActive())
         return "redirect:/listaCategorias"

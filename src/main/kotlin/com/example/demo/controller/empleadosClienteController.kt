@@ -1,6 +1,5 @@
 package com.example.demo.controller
 
-import com.example.demo.model.almacen
 import com.example.demo.model.cliente
 import com.example.demo.model.empleadosCliente
 import com.example.demo.service.clientesService

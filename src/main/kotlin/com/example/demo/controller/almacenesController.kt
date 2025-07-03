@@ -18,33 +18,28 @@ import org.springframework.web.bind.annotation.*
         return "listaAlmacenes"
     }
 
-    @GetMapping("/añadirAlmacen")
-    fun showAddForm(model: Model): String {
+    @GetMapping("/añadirAlmacen") fun showAddForm(model: Model): String {
         model.addAttribute("almacen", almacen())
         return "añadirAlmacen"
     }
 
-    @PostMapping("/guardar")
-    fun save(@ModelAttribute almacen: almacen): String {
-        almacenService.save(almacen)
+    @PostMapping("/guardar") fun save( @ModelAttribute almacen: almacen): String {
+        almacenService.crearAlmacenConUbicaciones(almacen)
         return "redirect:/listaAlmacenes"
     }
 
-    @GetMapping("/editar/{idalmacen})")
-    fun showEditForm(@PathVariable idalmacen: Int, model: Model): String {
+    @GetMapping("/editar/{idalmacen})") fun showEditForm(@PathVariable idalmacen: Int, model: Model): String {
         val almacen = almacenService.findbyID(idalmacen)
         model.addAttribute("almacen", almacen)
         return "añadirAlmacen"
     }
 
-    @PostMapping("/actualizar/{idalmacen}")
-    fun update(@ModelAttribute almacen: almacen,@RequestParam idalmacen:Int): String {
+    @PostMapping("/actualizar/{idalmacen}") fun update(@ModelAttribute almacen: almacen,@RequestParam idalmacen:Int): String {
         almacenService.update(almacen)
         return "redirect:/listaAlmacenes"
     }
 
-    @GetMapping("/eliminar/{idalmacen}")
-    fun deleteById(@PathVariable idalmacen: Int): String {
+    @GetMapping("/eliminar/{idalmacen}") fun deleteById(@PathVariable idalmacen: Int): String {
         val almacen=almacenService.findbyID(idalmacen)
         almacenService.deleteById(almacen.IDAlmacen)
         return "redirect:/listaAlmacenes"

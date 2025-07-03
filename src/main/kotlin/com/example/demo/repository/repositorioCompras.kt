@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
-@Repository
-interface repositorioCompras : JpaRepository<compra, String> {
+@Repository interface repositorioCompras : JpaRepository<compra, String> {
     @Query("select c from compra c where c.almacenDestino.IDAlmacen =: almacenDestino ")
     fun findByDestino(@Param("almacenDestino") almacenDestino:String): List<compra>
 

@@ -1,7 +1,5 @@
 package com.example.demo.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -15,6 +13,7 @@ import java.time.LocalDateTime
     var tipo:String?="",
     var motivo:String?="",
     var estado:String?="",
+    var subtotal: BigDecimal?= BigDecimal.ZERO,
     var total:BigDecimal?=BigDecimal.ZERO,
     var fechayhora: LocalDateTime?=LocalDateTime.now()
 )

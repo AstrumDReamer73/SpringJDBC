@@ -1,6 +1,5 @@
 package com.example.demo.repository
 
-import com.example.demo.model.articulo
 import com.example.demo.model.detallesTraslado
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
@@ -10,8 +9,7 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository interface repositorioDetallesTraslados:JpaRepository<detallesTraslado,String> {
-    @Transactional
-    @Modifying
+    @Transactional @Modifying
     @Query("DELETE FROM detallesTraslado d WHERE d.IDDetallesTraslado =: id")
     fun deleteByID(@Param("id") id: Int): Int
 

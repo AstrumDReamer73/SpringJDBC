@@ -2,7 +2,7 @@ package com.example.demo.controller
 
 import com.example.demo.model.articulo
 import com.example.demo.model.compra
-import com.example.demo.model.detallesdeCompra
+import com.example.demo.model.detallesCompra
 import com.example.demo.service.articulosService
 import com.example.demo.service.proveedoresService
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,16 +20,14 @@ import org.springframework.web.bind.annotation.*
         return "carritoCompra"
     }
 
-    @GetMapping("/añadir/{factura}")
-    fun showAddForm(@PathVariable factura: String, model: Model): String {
+    @GetMapping("/añadir/{factura}") fun showAddForm(@PathVariable factura: String, model: Model): String {
         model.addAttribute("listaArticulos", articulosService.findAll())
         model.addAttribute("articulo", articulo()) // Para identificar el carrito de compra
         return "agregarArticuloCarritoCompra" // Nombre de la vista para agregar artículos
     }
 
 
-    @PostMapping("/añadirArticulo/{factura}")
-    fun addCart(@PathVariable factura: compra, @ModelAttribute detallesDeCompra: detallesdeCompra): String {
+    @PostMapping("/añadirArticulo/{factura}") fun addCart(@PathVariable factura: compra, @ModelAttribute detallesDeCompra: detallesCompra): String {
         detallesDeCompra.factura = factura
         proveedoresService.saveDetallesDeCompra(detallesDeCompra)
         return "redirect:/carritoCompra/$factura" // Redirigir al carrito correspondiente
@@ -41,5 +39,4 @@ import org.springframework.web.bind.annotation.*
         proveedoresService.deleteDetallesDeCompraById(id)
         return "redirect:/carritoCompra/$factura" // Redirigir al carrito correspondiente
     }
-
 }

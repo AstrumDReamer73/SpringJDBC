@@ -1,7 +1,5 @@
 package com.example.demo.controller
 
-import com.example.demo.model.almacen
-import com.example.demo.model.categoria
 import com.example.demo.model.cliente
 import com.example.demo.service.clientesService
 import org.springframework.beans.factory.annotation.Autowired

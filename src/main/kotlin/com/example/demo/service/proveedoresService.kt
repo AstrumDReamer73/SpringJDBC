@@ -7,16 +7,14 @@ import com.example.demo.repository.repositorioEmpleadosProveedores
 import com.example.demo.repository.repositorioProveedores
 import org.springframework.stereotype.Service
 
-@Service class proveedoresService(
-    private val proveedorRepository: repositorioProveedores,
-    private val empleadosProveedorRepository: repositorioEmpleadosProveedores,
-    private val compraRepository: repositorioCompras,
-    private val detallesdeComprasRepository: repositorioDetallesdeCompras
-) {
+@Service class proveedoresService(private val proveedorRepository: repositorioProveedores,
+                                        private val empleadosProveedorRepository: repositorioEmpleadosProveedores,
+                                        private val compraRepository: repositorioCompras,
+                                        private val detallesdeComprasRepository: repositorioDetallesdeCompras) {
     //proveedores
     fun save(proveedor: proveedor): proveedor = proveedorRepository.save(proveedor)
 
-    fun findSupplierbyRFC(rfc: String):proveedor=proveedorRepository.findbyRFC(rfc)
+    fun findSupplierbyRFC(rfc: String):proveedor = proveedorRepository.findbyRFC(rfc)
 
     fun findAllSuppliers(): List<proveedor> = proveedorRepository.findAll()
 
@@ -36,11 +34,11 @@ import org.springframework.stereotype.Service
     }
 
     //empleados
-    fun findEmpleadobyRFC(rfc: String):empleadosProveedor=empleadosProveedorRepository.findbyID(rfc)
+    fun findEmpleadobyRFC(rfc: String):empleadosProveedor = empleadosProveedorRepository.findbyID(rfc)
 
-    fun findAllEmpleados():List<empleadosProveedor> =empleadosProveedorRepository.findAll()
+    fun findAllEmpleados():List<empleadosProveedor> = empleadosProveedorRepository.findAll()
 
-    fun findAllActiveEmpleados():List<empleadosProveedor> =empleadosProveedorRepository.findAllActive()
+    fun findAllActiveEmpleados():List<empleadosProveedor> = empleadosProveedorRepository.findAllActive()
 
     fun findEmpleadosbyEmployeer(rfc: String): List<empleadosProveedor> = empleadosProveedorRepository.findByRFCEmpleador(rfc)
 
@@ -95,15 +93,14 @@ import org.springframework.stereotype.Service
         }
     }
     //detalles de compra
-    fun findDetallesDeCompraByFactura(factura: String): List<detallesdeCompra> {
+    fun findDetallesDeCompraByFactura(factura: String): List<detallesCompra> {
         val compra=compraRepository.findByFactura(factura)
         return detallesdeComprasRepository.findbyPurchase(compra)
     }
 
-    fun saveDetallesDeCompra(detallesDeCompra: detallesdeCompra): detallesdeCompra =
-        detallesdeComprasRepository.save(detallesDeCompra)
+    fun saveDetallesDeCompra(detallesDeCompra: detallesCompra): detallesCompra = detallesdeComprasRepository.save(detallesDeCompra)
 
-    fun updateDetallesDeCompra(detallesDeCompra: detallesdeCompra): detallesdeCompra {
+    fun updateDetallesDeCompra(detallesDeCompra: detallesCompra): detallesCompra {
         return if (detallesDeCompra.IDDetalledeCompra != null && detallesdeComprasRepository.existsById(detallesDeCompra.IDDetalledeCompra!!)) { detallesdeComprasRepository.save(detallesDeCompra) }
         else { throw IllegalArgumentException("Detalle de compra no encontrado") }
     }
